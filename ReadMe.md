@@ -15,3 +15,7 @@ go get github.com/gaelreyrol/clevercloud-go/clevercloud
 ## Documentation
 
 See generated [ReadMe.md](./clevercloud/ReadMe.md)
+
+## Examples
+
+> ToDo
