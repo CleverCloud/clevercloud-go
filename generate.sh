@@ -17,4 +17,6 @@ export GO_POST_PROCESS_FILE="${GOFMT_PATH} -w"
   --skip-validate-spec \
   --enable-post-process-file \
   --minimal-update \
-  --additional-properties=packageName="clevercloud",packageVersion="${PACKAGE_VERSION}"
+  --git-user-id gaelreyrol \
+  --git-repo-id clevercloud-go \
+  --additional-properties=packageName="clevercloud",packageVersion="${PACKAGE_VERSION}",isGoSubmodule=true
