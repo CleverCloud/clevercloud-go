@@ -99,7 +99,7 @@ Method | HTTP request | Description
 [**SetSelfBuildInstanceFlavorByAppId**](SelfApi.md#SetSelfBuildInstanceFlavorByAppId) | **Put** /self/applications/{appId}/buildflavor | 
 [**SetSelfDefaultMethod**](SelfApi.md#SetSelfDefaultMethod) | **Put** /self/payments/methods/default | 
 [**SetSelfMaxCreditsPerMonth**](SelfApi.md#SetSelfMaxCreditsPerMonth) | **Put** /self/payments/monthlyinvoice/maxcredit | 
-[**SetUserAvatarFromFile**](SelfApi.md#SetUserAvatarFromFile) | **Put** /self/avatar | 
+[**SetUserAvatarFromString**](SelfApi.md#SetUserAvatarFromString) | **Put** /self/avatar | 
 [**UndeploySelfApplicationByAppId**](SelfApi.md#UndeploySelfApplicationByAppId) | **Delete** /self/applications/{appId}/instances | 
 [**UnlinkSelfddonFromApplicationByAppAndAddonId**](SelfApi.md#UnlinkSelfddonFromApplicationByAppAndAddonId) | **Delete** /self/applications/{appId}/addons/{addonId} | 
 [**UnmarkSelfFavouriteVhostByAppId**](SelfApi.md#UnmarkSelfFavouriteVhostByAppId) | **Delete** /self/applications/{appId}/vhosts/favourite | 
@@ -3168,9 +3168,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## SetUserAvatarFromFile
+## SetUserAvatarFromString
 
-> UrlView SetUserAvatarFromFile(ctx, body)
+> UrlView SetUserAvatarFromString(ctx, wannabeAvatarSource)
 
 
 
@@ -3180,7 +3180,7 @@ No authorization required
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**body** | ***os.File*****os.File**|  | 
+**wannabeAvatarSource** | [**WannabeAvatarSource**](WannabeAvatarSource.md)|  | 
 
 ### Return type
 
@@ -3192,7 +3192,7 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: image/bmp, image/gif, image/jpeg, image/png, image/tiff
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

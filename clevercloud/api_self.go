@@ -16,7 +16,6 @@ import (
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
-	"os"
 	"strings"
 )
 
@@ -7273,12 +7272,12 @@ func (a *SelfApiService) SetSelfMaxCreditsPerMonth(ctx _context.Context, wannabe
 }
 
 /*
-SetUserAvatarFromFile Method for SetUserAvatarFromFile
+SetUserAvatarFromString Method for SetUserAvatarFromString
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param body
+ * @param wannabeAvatarSource
 @return UrlView
 */
-func (a *SelfApiService) SetUserAvatarFromFile(ctx _context.Context, body *os.File) (UrlView, *_nethttp.Response, error) {
+func (a *SelfApiService) SetUserAvatarFromString(ctx _context.Context, wannabeAvatarSource WannabeAvatarSource) (UrlView, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
@@ -7295,7 +7294,7 @@ func (a *SelfApiService) SetUserAvatarFromFile(ctx _context.Context, body *os.Fi
 	localVarFormParams := _neturl.Values{}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"image/bmp", "image/gif", "image/jpeg", "image/png", "image/tiff"}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -7312,7 +7311,7 @@ func (a *SelfApiService) SetUserAvatarFromFile(ctx _context.Context, body *os.Fi
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = &body
+	localVarPostBody = &wannabeAvatarSource
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err

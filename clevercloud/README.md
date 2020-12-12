@@ -138,8 +138,8 @@ Class | Method | HTTP request | Description
 *OrganisationApi* | [**GetSSODataForOrga**](docs/OrganisationApi.md#getssodatafororga) | **Get** /organisations/{id}/addonproviders/{providerId}/sso | 
 *OrganisationApi* | [**GetStripeTokenByOrga**](docs/OrganisationApi.md#getstripetokenbyorga) | **Get** /organisations/{id}/payments/tokens/stripe | 
 *OrganisationApi* | [**GetTcpRedirs**](docs/OrganisationApi.md#gettcpredirs) | **Get** /organisations/{id}/applications/{appId}/tcpRedirs | 
-*OrganisationApi* | [**GetUnpaidInvoicesByOrga**](docs/OrganisationApi.md#getunpaidinvoicesbyorga) | **Get** /organisations/{id}/payments/methods | 
-*OrganisationApi* | [**GetUnpaidInvoicesByOrga1**](docs/OrganisationApi.md#getunpaidinvoicesbyorga1) | **Get** /organisations/{id}/payments/billings/unpaid | 
+*OrganisationApi* | [**GetUnpaidInvoicesByOrga**](docs/OrganisationApi.md#getunpaidinvoicesbyorga) | **Get** /organisations/{id}/payments/billings/unpaid | 
+*OrganisationApi* | [**GetUnpaidInvoicesByOrga1**](docs/OrganisationApi.md#getunpaidinvoicesbyorga1) | **Get** /organisations/{id}/payments/methods | 
 *OrganisationApi* | [**GetUserOrganisationss**](docs/OrganisationApi.md#getuserorganisationss) | **Get** /organisations | 
 *OrganisationApi* | [**GetVhostsByOrgaAndAppId**](docs/OrganisationApi.md#getvhostsbyorgaandappid) | **Get** /organisations/{id}/applications/{appId}/vhosts | 
 *OrganisationApi* | [**LinkAddonToApplicationByOrgaAndAppId**](docs/OrganisationApi.md#linkaddontoapplicationbyorgaandappid) | **Post** /organisations/{id}/applications/{appId}/addons | 
@@ -290,7 +290,7 @@ Class | Method | HTTP request | Description
 *SelfApi* | [**SetSelfBuildInstanceFlavorByAppId**](docs/SelfApi.md#setselfbuildinstanceflavorbyappid) | **Put** /self/applications/{appId}/buildflavor | 
 *SelfApi* | [**SetSelfDefaultMethod**](docs/SelfApi.md#setselfdefaultmethod) | **Put** /self/payments/methods/default | 
 *SelfApi* | [**SetSelfMaxCreditsPerMonth**](docs/SelfApi.md#setselfmaxcreditspermonth) | **Put** /self/payments/monthlyinvoice/maxcredit | 
-*SelfApi* | [**SetUserAvatarFromFile**](docs/SelfApi.md#setuseravatarfromfile) | **Put** /self/avatar | 
+*SelfApi* | [**SetUserAvatarFromString**](docs/SelfApi.md#setuseravatarfromstring) | **Put** /self/avatar | 
 *SelfApi* | [**UndeploySelfApplicationByAppId**](docs/SelfApi.md#undeployselfapplicationbyappid) | **Delete** /self/applications/{appId}/instances | 
 *SelfApi* | [**UnlinkSelfddonFromApplicationByAppAndAddonId**](docs/SelfApi.md#unlinkselfddonfromapplicationbyappandaddonid) | **Delete** /self/applications/{appId}/addons/{addonId} | 
 *SelfApi* | [**UnmarkSelfFavouriteVhostByAppId**](docs/SelfApi.md#unmarkselffavouritevhostbyappid) | **Delete** /self/applications/{appId}/vhosts/favourite | 

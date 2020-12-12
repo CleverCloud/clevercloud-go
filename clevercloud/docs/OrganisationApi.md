@@ -98,8 +98,8 @@ Method | HTTP request | Description
 [**GetSSODataForOrga**](OrganisationApi.md#GetSSODataForOrga) | **Get** /organisations/{id}/addonproviders/{providerId}/sso | 
 [**GetStripeTokenByOrga**](OrganisationApi.md#GetStripeTokenByOrga) | **Get** /organisations/{id}/payments/tokens/stripe | 
 [**GetTcpRedirs**](OrganisationApi.md#GetTcpRedirs) | **Get** /organisations/{id}/applications/{appId}/tcpRedirs | 
-[**GetUnpaidInvoicesByOrga**](OrganisationApi.md#GetUnpaidInvoicesByOrga) | **Get** /organisations/{id}/payments/methods | 
-[**GetUnpaidInvoicesByOrga1**](OrganisationApi.md#GetUnpaidInvoicesByOrga1) | **Get** /organisations/{id}/payments/billings/unpaid | 
+[**GetUnpaidInvoicesByOrga**](OrganisationApi.md#GetUnpaidInvoicesByOrga) | **Get** /organisations/{id}/payments/billings/unpaid | 
+[**GetUnpaidInvoicesByOrga1**](OrganisationApi.md#GetUnpaidInvoicesByOrga1) | **Get** /organisations/{id}/payments/methods | 
 [**GetUserOrganisationss**](OrganisationApi.md#GetUserOrganisationss) | **Get** /organisations | 
 [**GetVhostsByOrgaAndAppId**](OrganisationApi.md#GetVhostsByOrgaAndAppId) | **Get** /organisations/{id}/applications/{appId}/vhosts | 
 [**LinkAddonToApplicationByOrgaAndAppId**](OrganisationApi.md#LinkAddonToApplicationByOrgaAndAppId) | **Post** /organisations/{id}/applications/{appId}/addons | 
@@ -3369,7 +3369,7 @@ No authorization required
 
 ## GetUnpaidInvoicesByOrga
 
-> []PaymentMethodView GetUnpaidInvoicesByOrga(ctx, id)
+> []InvoiceRendering GetUnpaidInvoicesByOrga(ctx, id)
 
 
 
@@ -3383,7 +3383,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]PaymentMethodView**](PaymentMethodView.md)
+[**[]InvoiceRendering**](InvoiceRendering.md)
 
 ### Authorization
 
@@ -3401,7 +3401,7 @@ No authorization required
 
 ## GetUnpaidInvoicesByOrga1
 
-> []InvoiceRendering GetUnpaidInvoicesByOrga1(ctx, id)
+> []PaymentMethodView GetUnpaidInvoicesByOrga1(ctx, id)
 
 
 
@@ -3415,7 +3415,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]InvoiceRendering**](InvoiceRendering.md)
+[**[]PaymentMethodView**](PaymentMethodView.md)
 
 ### Authorization
 
