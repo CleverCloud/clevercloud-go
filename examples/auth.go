@@ -1,7 +1,7 @@
 package examples
 
 import (
-	"github.com/gaelreyrol/clevercloud-go/clevercloud"
+	"github.com/clevercloud/clevercloud-go/clevercloud"
 )
 
 func main() {

@@ -1,3 +1,3 @@
-module github.com/gaelreyrol/clevercloud-go
+module github.com/clevercloud/clevercloud-go
 
 go 1.15
