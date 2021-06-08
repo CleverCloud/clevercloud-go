@@ -12,13 +12,17 @@ package clevercloud
 
 // FlavorView struct for FlavorView
 type FlavorView struct {
-	Name         string  `json:"name,omitempty"`
-	Mem          int32   `json:"mem,omitempty"`
-	Cpus         int32   `json:"cpus,omitempty"`
-	Gpus         int32   `json:"gpus,omitempty"`
-	Disk         int32   `json:"disk,omitempty"`
-	Price        float32 `json:"price,omitempty"`
-	Available    bool    `json:"available,omitempty"`
-	Microservice bool    `json:"microservice,omitempty"`
-	Nice         int32   `json:"nice,omitempty"`
+	Name            string        `json:"name,omitempty"`
+	Mem             int32         `json:"mem,omitempty"`
+	Cpus            int32         `json:"cpus,omitempty"`
+	Gpus            int32         `json:"gpus,omitempty"`
+	Disk            int32         `json:"disk,omitempty"`
+	Price           float32       `json:"price,omitempty"`
+	Available       bool          `json:"available,omitempty"`
+	Microservice    bool          `json:"microservice,omitempty"`
+	MachineLearning bool          `json:"machine_learning,omitempty"`
+	Nice            int32         `json:"nice,omitempty"`
+	PriceId         string        `json:"price_id,omitempty"`
+	Memory          ValueWithUnit `json:"memory,omitempty"`
+	Rbdimage        string        `json:"rbdimage,omitempty"`
 }

@@ -10,9 +10,9 @@
 
 package clevercloud
 
-// AddonFeatureView struct for AddonFeatureView
-type AddonFeatureView struct {
-	Name     string `json:"name,omitempty"`
-	Type     string `json:"type,omitempty"`
-	NameCode string `json:"name_code,omitempty"`
+// ValueWithUnit struct for ValueWithUnit
+type ValueWithUnit struct {
+	Unit      string  `json:"unit,omitempty"`
+	Value     float32 `json:"value,omitempty"`
+	Formatted string  `json:"formatted,omitempty"`
 }

@@ -99,7 +99,7 @@ Method | HTTP request | Description
 [**SetSelfBuildInstanceFlavorByAppId**](SelfApi.md#SetSelfBuildInstanceFlavorByAppId) | **Put** /self/applications/{appId}/buildflavor | 
 [**SetSelfDefaultMethod**](SelfApi.md#SetSelfDefaultMethod) | **Put** /self/payments/methods/default | 
 [**SetSelfMaxCreditsPerMonth**](SelfApi.md#SetSelfMaxCreditsPerMonth) | **Put** /self/payments/monthlyinvoice/maxcredit | 
-[**SetUserAvatarFromString**](SelfApi.md#SetUserAvatarFromString) | **Put** /self/avatar | 
+[**SetUserAvatarFromFile**](SelfApi.md#SetUserAvatarFromFile) | **Put** /self/avatar | 
 [**UndeploySelfApplicationByAppId**](SelfApi.md#UndeploySelfApplicationByAppId) | **Delete** /self/applications/{appId}/instances | 
 [**UnlinkSelfddonFromApplicationByAppAndAddonId**](SelfApi.md#UnlinkSelfddonFromApplicationByAppAndAddonId) | **Delete** /self/applications/{appId}/addons/{addonId} | 
 [**UnmarkSelfFavouriteVhostByAppId**](SelfApi.md#UnmarkSelfFavouriteVhostByAppId) | **Delete** /self/applications/{appId}/vhosts/favourite | 
@@ -112,7 +112,7 @@ Method | HTTP request | Description
 
 ## AddEmailAddress
 
-> Message AddEmailAddress(ctx, email)
+> Message AddEmailAddress(ctx, email, optional)
 
 
 
@@ -123,6 +123,17 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **email** | **string**|  | 
+ **optional** | ***AddEmailAddressOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a AddEmailAddressOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **body** | **optional.String**|  | 
 
 ### Return type
 
@@ -134,7 +145,7 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -3168,9 +3179,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## SetUserAvatarFromString
+## SetUserAvatarFromFile
 
-> UrlView SetUserAvatarFromString(ctx, wannabeAvatarSource)
+> UrlView SetUserAvatarFromFile(ctx, body)
 
 
 
@@ -3180,7 +3191,7 @@ No authorization required
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**wannabeAvatarSource** | [**WannabeAvatarSource**](WannabeAvatarSource.md)|  | 
+**body** | ***os.File*****os.File**|  | 
 
 ### Return type
 
@@ -3192,7 +3203,7 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: image/bmp, image/gif, image/jpeg, image/png, image/tiff
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

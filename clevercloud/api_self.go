@@ -16,6 +16,7 @@ import (
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
+	"os"
 	"strings"
 )
 
@@ -27,13 +28,20 @@ var (
 // SelfApiService SelfApi service
 type SelfApiService service
 
+// AddEmailAddressOpts Optional parameters for the method 'AddEmailAddress'
+type AddEmailAddressOpts struct {
+	Body optional.String
+}
+
 /*
 AddEmailAddress Method for AddEmailAddress
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param email
+ * @param optional nil or *AddEmailAddressOpts - Optional Parameters:
+ * @param "Body" (optional.String) -
 @return Message
 */
-func (a *SelfApiService) AddEmailAddress(ctx _context.Context, email string) (Message, *_nethttp.Response, error) {
+func (a *SelfApiService) AddEmailAddress(ctx _context.Context, email string, localVarOptionals *AddEmailAddressOpts) (Message, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
@@ -52,7 +60,7 @@ func (a *SelfApiService) AddEmailAddress(ctx _context.Context, email string) (Me
 	localVarFormParams := _neturl.Values{}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -68,6 +76,11 @@ func (a *SelfApiService) AddEmailAddress(ctx _context.Context, email string) (Me
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
+		localVarPostBody = localVarOptionals.Body.Value()
+	}
+
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -7272,12 +7285,12 @@ func (a *SelfApiService) SetSelfMaxCreditsPerMonth(ctx _context.Context, wannabe
 }
 
 /*
-SetUserAvatarFromString Method for SetUserAvatarFromString
+SetUserAvatarFromFile Method for SetUserAvatarFromFile
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param wannabeAvatarSource
+ * @param body
 @return UrlView
 */
-func (a *SelfApiService) SetUserAvatarFromString(ctx _context.Context, wannabeAvatarSource WannabeAvatarSource) (UrlView, *_nethttp.Response, error) {
+func (a *SelfApiService) SetUserAvatarFromFile(ctx _context.Context, body *os.File) (UrlView, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
@@ -7294,7 +7307,7 @@ func (a *SelfApiService) SetUserAvatarFromString(ctx _context.Context, wannabeAv
 	localVarFormParams := _neturl.Values{}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{"image/bmp", "image/gif", "image/jpeg", "image/png", "image/tiff"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -7311,7 +7324,7 @@ func (a *SelfApiService) SetUserAvatarFromString(ctx _context.Context, wannabeAv
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = &wannabeAvatarSource
+	localVarPostBody = &body
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err

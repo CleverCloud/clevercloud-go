@@ -16,6 +16,7 @@ type AddonPlanView struct {
 	Name     string                     `json:"name,omitempty"`
 	Slug     string                     `json:"slug,omitempty"`
 	Price    float32                    `json:"price,omitempty"`
+	PriceId  string                     `json:"price_id,omitempty"`
 	Features []AddonFeatureInstanceView `json:"features,omitempty"`
 	Zones    []string                   `json:"zones,omitempty"`
 }

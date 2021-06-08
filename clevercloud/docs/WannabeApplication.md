@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **InstanceType** | **string** |  | [optional] 
 **InstanceVersion** | **string** |  | [optional] 
 **InstanceVariant** | **string** |  | [optional] 
+**InstanceLifetime** | **string** |  | [optional] 
 **MinInstances** | **int32** |  | [optional] 
 **MaxInstances** | **int32** |  | [optional] 
 **MinFlavor** | **string** |  | [optional] 

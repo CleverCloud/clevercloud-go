@@ -12,7 +12,9 @@ package clevercloud
 
 // AddonFeatureInstanceView struct for AddonFeatureInstanceView
 type AddonFeatureInstanceView struct {
-	Name  string `json:"name,omitempty"`
-	Type  string `json:"type,omitempty"`
-	Value string `json:"value,omitempty"`
+	Name            string `json:"name,omitempty"`
+	Type            string `json:"type,omitempty"`
+	Value           string `json:"value,omitempty"`
+	ComputableValue string `json:"computable_value,omitempty"`
+	NameCode        string `json:"name_code,omitempty"`
 }

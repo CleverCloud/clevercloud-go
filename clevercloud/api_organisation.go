@@ -12,11 +12,12 @@ package clevercloud
 
 import (
 	_context "context"
-	"github.com/antihax/optional"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
 	"strings"
+
+	"github.com/antihax/optional"
 )
 
 // Linger please
@@ -7588,20 +7589,20 @@ func (a *OrganisationApiService) GetTcpRedirs(ctx _context.Context, id string, a
 GetUnpaidInvoicesByOrga Method for GetUnpaidInvoicesByOrga
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param id
-@return []InvoiceRendering
+@return []PaymentMethodView
 */
-func (a *OrganisationApiService) GetUnpaidInvoicesByOrga(ctx _context.Context, id string) ([]InvoiceRendering, *_nethttp.Response, error) {
+func (a *OrganisationApiService) GetUnpaidInvoicesByOrga(ctx _context.Context, id string) ([]PaymentMethodView, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  []InvoiceRendering
+		localVarReturnValue  []PaymentMethodView
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/organisations/{id}/payments/billings/unpaid"
+	localVarPath := a.client.cfg.BasePath + "/organisations/{id}/payments/methods"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", _neturl.QueryEscape(parameterToString(id, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -7665,20 +7666,20 @@ func (a *OrganisationApiService) GetUnpaidInvoicesByOrga(ctx _context.Context, i
 GetUnpaidInvoicesByOrga1 Method for GetUnpaidInvoicesByOrga1
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param id
-@return []PaymentMethodView
+@return []InvoiceRendering
 */
-func (a *OrganisationApiService) GetUnpaidInvoicesByOrga1(ctx _context.Context, id string) ([]PaymentMethodView, *_nethttp.Response, error) {
+func (a *OrganisationApiService) GetUnpaidInvoicesByOrga1(ctx _context.Context, id string) ([]InvoiceRendering, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  []PaymentMethodView
+		localVarReturnValue  []InvoiceRendering
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/organisations/{id}/payments/methods"
+	localVarPath := a.client.cfg.BasePath + "/organisations/{id}/payments/billings/unpaid"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", _neturl.QueryEscape(parameterToString(id, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)

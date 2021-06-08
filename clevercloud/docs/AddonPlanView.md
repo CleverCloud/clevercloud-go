@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Name** | **string** |  | [optional] 
 **Slug** | **string** |  | [optional] 
 **Price** | **float32** |  | [optional] 
+**PriceId** | **string** |  | [optional] 
 **Features** | [**[]AddonFeatureInstanceView**](AddonFeatureInstanceView.md) |  | [optional] 
 **Zones** | **[]string** |  | [optional] 
 
