@@ -384,6 +384,17 @@ paths:
                 type: string
       tags:
       - User
+  /github:
+    get:
+      operationId: getGithub
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthTransactionView'
+      tags:
+      - User
   /github/signup:
     get:
       operationId: githubSignup
@@ -688,17 +699,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Message'
-      tags:
-      - User
-  /github:
-    get:
-      operationId: getGithub
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OAuthTransactionView'
       tags:
       - User
   /oauth/authorize:
@@ -1110,9 +1110,9 @@ paths:
           description: default response
       tags:
       - Auth
-  /organisations/{id}/namespaces:
-    get:
-      operationId: getNamespaces
+  /organisations/{id}/avatar:
+    put:
+      operationId: setOrgaAvatar
       parameters:
       - explode: false
         in: path
@@ -1126,9 +1126,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/NamespaceView'
-                type: array
+                $ref: '#/components/schemas/UrlView'
       tags:
       - Organisation
   /organisations/{id}:
@@ -1192,25 +1190,6 @@ paths:
                 $ref: '#/components/schemas/OrganisationView'
       tags:
       - Organisation
-  /organisations/{id}/instances:
-    get:
-      operationId: getInstancesForAllAppsForOrga
-      parameters:
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                type: string
-      tags:
-      - Organisation
   /organisations/{id}/deployments:
     get:
       operationId: getDeploymentsForAllApps
@@ -1256,9 +1235,9 @@ paths:
                 $ref: '#/components/schemas/PaymentInfoView'
       tags:
       - Organisation
-  /organisations/{id}/avatar:
-    put:
-      operationId: setOrgaAvatar
+  /organisations/{id}/instances:
+    get:
+      operationId: getInstancesForAllAppsForOrga
       parameters:
       - explode: false
         in: path
@@ -1272,7 +1251,56 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UrlView'
+                type: string
+      tags:
+      - Organisation
+  /organisations/{id}/namespaces:
+    get:
+      operationId: getNamespaces
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/NamespaceView'
+                type: array
+      tags:
+      - Organisation
+  /organisations/{id}/addonproviders/{providerId}/tags:
+    get:
+      operationId: getProviderTags
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: providerId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
       tags:
       - Organisation
   /organisations/{id}/addonproviders/{providerId}:
@@ -1354,79 +1382,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AddonProviderInfoView'
-      tags:
-      - Organisation
-  /organisations/{id}/addonproviders/{providerId}/tags:
-    get:
-      operationId: getProviderTags
-      parameters:
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: providerId
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  type: string
-                type: array
-      tags:
-      - Organisation
-  /organisations/{id}/addonproviders:
-    get:
-      operationId: getProvidersInfo
-      parameters:
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/AddonProviderInfoFullView'
-                type: array
-      tags:
-      - Organisation
-    post:
-      operationId: createProvider
-      parameters:
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/WannabeAddonProvider'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AddonProviderInfoFullView'
       tags:
       - Organisation
   /organisations/{id}/addonproviders/{providerId}/features:
@@ -1817,6 +1772,51 @@ paths:
                 $ref: '#/components/schemas/AddonProviderSSOData'
       tags:
       - Organisation
+  /organisations/{id}/addonproviders:
+    get:
+      operationId: getProvidersInfo
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/AddonProviderInfoFullView'
+                type: array
+      tags:
+      - Organisation
+    post:
+      operationId: createProvider
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WannabeAddonProvider'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddonProviderInfoFullView'
+      tags:
+      - Organisation
   /organisations/{id}/addons/{addonId}/tags/{tag}:
     delete:
       operationId: deleteAddonTagByOrgaAndAddonId
@@ -1946,34 +1946,6 @@ paths:
                 type: array
       tags:
       - Organisation
-  /organisations/{id}/addons/{addonId}/applications:
-    get:
-      operationId: getApplicationsLinkedToAddonByOrgaAndAddonId
-      parameters:
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: addonId
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/ApplicationView'
-                type: array
-      tags:
-      - Organisation
   /organisations/{id}/addons/{addonId}/sso:
     get:
       operationId: getAddonSSODataForOrga
@@ -2082,9 +2054,9 @@ paths:
                 $ref: '#/components/schemas/AddonView'
       tags:
       - Organisation
-  /organisations/{id}/addons/preorders:
-    post:
-      operationId: preorderAddonByOrgaId
+  /organisations/{id}/addons/{addonId}/applications:
+    get:
+      operationId: getApplicationsLinkedToAddonByOrgaAndAddonId
       parameters:
       - explode: false
         in: path
@@ -2093,27 +2065,9 @@ paths:
         schema:
           type: string
         style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/WannabeAddonProvision'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InvoiceRendering'
-      tags:
-      - Organisation
-  /organisations/{id}/addons:
-    get:
-      operationId: getAddonsByOrgaId
-      parameters:
       - explode: false
         in: path
-        name: id
+        name: addonId
         required: true
         schema:
           type: string
@@ -2124,159 +2078,8 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/AddonView'
+                  $ref: '#/components/schemas/ApplicationView'
                 type: array
-      tags:
-      - Organisation
-    post:
-      operationId: provisionAddonByOrgaId
-      parameters:
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/WannabeAddonProvision'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AddonView'
-        "402":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StripeConfirmationErrorMessage'
-      tags:
-      - Organisation
-  /organisations/{id}/addons/{addonId}/migrations:
-    get:
-      operationId: getAddonMigrations
-      parameters:
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: addonId
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                type: string
-      tags:
-      - Organisation
-    post:
-      operationId: changePlanByOrgaAndAddonId
-      parameters:
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: addonId
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/WannabePlanChange'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                type: string
-      tags:
-      - Organisation
-  /organisations/{id}/addons/{addonId}/migrations/{migrationId}:
-    delete:
-      operationId: abortAddonMigration
-      parameters:
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: addonId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: migrationId
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                type: string
-      tags:
-      - Organisation
-    get:
-      operationId: getAddonMigration
-      parameters:
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: addonId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: migrationId
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                type: string
       tags:
       - Organisation
   /organisations/{id}/addons/{addonId}/env:
@@ -2382,6 +2185,63 @@ paths:
                 type: string
       tags:
       - Organisation
+  /organisations/{id}/addons/{addonId}/migrations:
+    get:
+      operationId: getAddonMigrations
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: addonId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+      - Organisation
+    post:
+      operationId: changePlanByOrgaAndAddonId
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: addonId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WannabePlanChange'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+      - Organisation
   /organisations/{id}/addons/{addonId}/migrations/preorders:
     get:
       operationId: preorderMigration
@@ -2407,6 +2267,146 @@ paths:
         schema:
           type: string
         style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+      - Organisation
+  /organisations/{id}/addons/preorders:
+    post:
+      operationId: preorderAddonByOrgaId
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WannabeAddonProvision'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoiceRendering'
+      tags:
+      - Organisation
+  /organisations/{id}/addons:
+    get:
+      operationId: getAddonsByOrgaId
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/AddonView'
+                type: array
+      tags:
+      - Organisation
+    post:
+      operationId: provisionAddonByOrgaId
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WannabeAddonProvision'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddonView'
+        "402":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StripeConfirmationErrorMessage'
+      tags:
+      - Organisation
+  /organisations/{id}/addons/{addonId}/migrations/{migrationId}:
+    delete:
+      operationId: abortAddonMigration
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: addonId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: migrationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+      - Organisation
+    get:
+      operationId: getAddonMigration
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: addonId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: migrationId
+        required: true
+        schema:
+          type: string
+        style: simple
       responses:
         "200":
           content:
@@ -2977,386 +2977,6 @@ paths:
                 type: array
       tags:
       - Organisation
-  /organisations/{id}/applications:
-    get:
-      operationId: getAllApplicationsByOrga
-      parameters:
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: true
-        in: query
-        name: instanceId
-        required: false
-        schema:
-          type: string
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/ApplicationView'
-                type: array
-      tags:
-      - Organisation
-    post:
-      operationId: addApplicationByOrga
-      parameters:
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/WannabeApplication'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApplicationView'
-      tags:
-      - Organisation
-  /organisations/{id}/applications/{appId}/env/{envName}:
-    delete:
-      operationId: removeApplicationEnvByOrgaAndAppIdAndEnvName
-      parameters:
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: appId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: envName
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApplicationView'
-      tags:
-      - Organisation
-    put:
-      operationId: editApplicationEnvByOrgaAndAppIdAndEnvName
-      parameters:
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: appId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: envName
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/WannabeValue'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApplicationView'
-      tags:
-      - Organisation
-  /organisations/{id}/applications/{appId}/env:
-    get:
-      operationId: getApplicationEnvByOrgaAndAppId
-      parameters:
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: appId
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/AddonEnvironmentView'
-                type: array
-      tags:
-      - Organisation
-    put:
-      operationId: editApplicationEnvironmentByOrgaAndAppId
-      parameters:
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: appId
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: string
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApplicationView'
-      tags:
-      - Organisation
-  /organisations/{id}/applications/{appId}/addons/env:
-    get:
-      operationId: getEnvOfAddonsLinkedToApplicationByOrgaAndAppId
-      parameters:
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: appId
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/LinkedAddonEnvironmentView'
-                type: array
-      tags:
-      - Organisation
-  /organisations/{id}/applications/{appId}/exposed_env:
-    get:
-      operationId: getExposedEnvByOrgaAndAppId
-      parameters:
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: appId
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                type: string
-      tags:
-      - Organisation
-    put:
-      operationId: updateExposedEnvByOrgaAndAppId
-      parameters:
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: appId
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: string
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Message'
-      tags:
-      - Organisation
-  /organisations/{id}/applications/{appId}/tcpRedirs:
-    get:
-      operationId: getTcpRedirs
-      parameters:
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: appId
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/TcpRedirView'
-                type: array
-        "402":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/InvoiceRendering'
-                type: array
-      tags:
-      - Organisation
-    post:
-      operationId: addTcpRedir
-      parameters:
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: appId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: true
-        in: query
-        name: payment
-        required: false
-        schema:
-          type: string
-        style: form
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/WannabeNamespace'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TcpRedirView'
-      tags:
-      - Organisation
-  /organisations/{id}/applications/{appId}/tcpRedirs/{sourcePort}:
-    delete:
-      operationId: removeTcpRedir
-      parameters:
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: appId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: sourcePort
-        required: true
-        schema:
-          format: int64
-          type: integer
-        style: simple
-      - explode: true
-        in: query
-        name: namespace
-        required: false
-        schema:
-          type: string
-        style: form
-      responses:
-        default:
-          content:
-            application/json: {}
-          description: default response
-      tags:
-      - Organisation
   /organisations/{id}/applications/{appId}:
     delete:
       operationId: deleteApplicationByOrgaAndAppId
@@ -3421,6 +3041,58 @@ paths:
       - explode: false
         in: path
         name: appId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WannabeApplication'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationView'
+      tags:
+      - Organisation
+  /organisations/{id}/applications:
+    get:
+      operationId: getAllApplicationsByOrga
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: instanceId
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ApplicationView'
+                type: array
+      tags:
+      - Organisation
+    post:
+      operationId: addApplicationByOrga
+      parameters:
+      - explode: false
+        in: path
+        name: id
         required: true
         schema:
           type: string
@@ -3726,6 +3398,334 @@ paths:
           description: default response
       tags:
       - Organisation
+  /organisations/{id}/applications/{appId}/tcpRedirs:
+    get:
+      operationId: getTcpRedirs
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/TcpRedirView'
+                type: array
+        "402":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/InvoiceRendering'
+                type: array
+      tags:
+      - Organisation
+    post:
+      operationId: addTcpRedir
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: payment
+        required: false
+        schema:
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WannabeNamespace'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TcpRedirView'
+      tags:
+      - Organisation
+  /organisations/{id}/applications/{appId}/tcpRedirs/{sourcePort}:
+    delete:
+      operationId: removeTcpRedir
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: sourcePort
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      - explode: true
+        in: query
+        name: namespace
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        default:
+          content:
+            application/json: {}
+          description: default response
+      tags:
+      - Organisation
+  /organisations/{id}/applications/{appId}/env/{envName}:
+    delete:
+      operationId: removeApplicationEnvByOrgaAndAppIdAndEnvName
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: envName
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationView'
+      tags:
+      - Organisation
+    put:
+      operationId: editApplicationEnvByOrgaAndAppIdAndEnvName
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: envName
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WannabeValue'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationView'
+      tags:
+      - Organisation
+  /organisations/{id}/applications/{appId}/env:
+    get:
+      operationId: getApplicationEnvByOrgaAndAppId
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/AddonEnvironmentView'
+                type: array
+      tags:
+      - Organisation
+    put:
+      operationId: editApplicationEnvironmentByOrgaAndAppId
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationView'
+      tags:
+      - Organisation
+  /organisations/{id}/applications/{appId}/addons/env:
+    get:
+      operationId: getEnvOfAddonsLinkedToApplicationByOrgaAndAppId
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/LinkedAddonEnvironmentView'
+                type: array
+      tags:
+      - Organisation
+  /organisations/{id}/applications/{appId}/exposed_env:
+    get:
+      operationId: getExposedEnvByOrgaAndAppId
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+      - Organisation
+    put:
+      operationId: updateExposedEnvByOrgaAndAppId
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+      tags:
+      - Organisation
   /organisations/{id}/applications/{appId}/buildflavor:
     put:
       operationId: setBuildInstanceFlavorByOrgaAndAppId
@@ -3755,51 +3755,6 @@ paths:
           content:
             application/json: {}
           description: default response
-      tags:
-      - Organisation
-  /organisations/{id}/consumers:
-    get:
-      operationId: getConsumersByOrga
-      parameters:
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/OAuth1ConsumerView'
-                type: array
-      tags:
-      - Organisation
-    post:
-      operationId: createConsumerByOrga
-      parameters:
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/WannabeOAuth1Consumer'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OAuth1ConsumerView'
       tags:
       - Organisation
   /organisations/{id}/consumers/{key}/secret:
@@ -3909,6 +3864,51 @@ paths:
                 $ref: '#/components/schemas/OAuth1ConsumerView'
       tags:
       - Organisation
+  /organisations/{id}/consumers:
+    get:
+      operationId: getConsumersByOrga
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/OAuth1ConsumerView'
+                type: array
+      tags:
+      - Organisation
+    post:
+      operationId: createConsumerByOrga
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WannabeOAuth1Consumer'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuth1ConsumerView'
+      tags:
+      - Organisation
   /organisations/{id}/credits:
     get:
       operationId: getAmountForOrga
@@ -3975,58 +3975,6 @@ paths:
                 type: string
       tags:
       - Organisation
-  /organisations/{id}/members:
-    get:
-      operationId: getOrganisationMembers
-      parameters:
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/OrganisationMemberView'
-                type: array
-      tags:
-      - Organisation
-    post:
-      operationId: addOrganisationMember
-      parameters:
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: true
-        in: query
-        name: invitationKey
-        required: false
-        schema:
-          type: string
-        style: form
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/WannabeMember'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Message'
-      tags:
-      - Organisation
   /organisations/{id}/members/{userId}:
     delete:
       operationId: removeOrganisationMember
@@ -4084,9 +4032,9 @@ paths:
                 $ref: '#/components/schemas/Message'
       tags:
       - Organisation
-  /organisations/{id}/payments/tokens/stripe:
+  /organisations/{id}/members:
     get:
-      operationId: getStripeTokenByOrga
+      operationId: getOrganisationMembers
       parameters:
       - explode: false
         in: path
@@ -4100,7 +4048,40 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BraintreeToken'
+                items:
+                  $ref: '#/components/schemas/OrganisationMemberView'
+                type: array
+      tags:
+      - Organisation
+    post:
+      operationId: addOrganisationMember
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: invitationKey
+        required: false
+        schema:
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WannabeMember'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
       tags:
       - Organisation
   /organisations/{id}/payments/monthlyinvoice:
@@ -4120,87 +4101,6 @@ paths:
             application/json:
               schema:
                 type: string
-      tags:
-      - Organisation
-  /organisations/{id}/payments/billings/{bid}:
-    delete:
-      operationId: deletePurchaseOrderByOrga
-      parameters:
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: bid
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        default:
-          content:
-            application/json: {}
-          description: default response
-      tags:
-      - Organisation
-    get:
-      operationId: getInvoiceByOrga
-      parameters:
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: bid
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InvoiceRendering'
-      tags:
-      - Organisation
-    put:
-      operationId: choosePaymentProviderByOrga
-      parameters:
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: bid
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PaymentProviderSelection'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NextInPaymentFlow'
       tags:
       - Organisation
   /organisations/{id}/payments/billings/{bid}.pdf:
@@ -4330,6 +4230,87 @@ paths:
                 $ref: '#/components/schemas/PriceWithTaxInfo'
       tags:
       - Organisation
+  /organisations/{id}/payments/billings/{bid}:
+    delete:
+      operationId: deletePurchaseOrderByOrga
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: bid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        default:
+          content:
+            application/json: {}
+          description: default response
+      tags:
+      - Organisation
+    get:
+      operationId: getInvoiceByOrga
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: bid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoiceRendering'
+      tags:
+      - Organisation
+    put:
+      operationId: choosePaymentProviderByOrga
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: bid
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentProviderSelection'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NextInPaymentFlow'
+      tags:
+      - Organisation
   /organisations/{id}/payments/recurring:
     delete:
       operationId: deleteRecurrentPaymentByOrga
@@ -4364,6 +4345,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RecurrentPaymentView'
+      tags:
+      - Organisation
+  /organisations/{id}/payments/tokens/stripe:
+    get:
+      operationId: getStripeTokenByOrga
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BraintreeToken'
       tags:
       - Organisation
   /organisations/{id}/payments/methods/{mId}:
@@ -4435,6 +4435,27 @@ paths:
                 $ref: '#/components/schemas/PaymentMethodView'
       tags:
       - Organisation
+  /organisations/{id}/payments/billings/unpaid:
+    get:
+      operationId: getUnpaidInvoicesByOrga_1
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/InvoiceRendering'
+                type: array
+      tags:
+      - Organisation
   /organisations/{id}/payments/methods/newintent:
     get:
       operationId: getNewSetupIntentByOrga
@@ -4503,27 +4524,6 @@ paths:
           description: default response
       tags:
       - Organisation
-  /organisations/{id}/payments/billings/unpaid:
-    get:
-      operationId: getUnpaidInvoicesByOrga_1
-      parameters:
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/InvoiceRendering'
-                type: array
-      tags:
-      - Organisation
   /organisations:
     get:
       operationId: getUserOrganisationss
@@ -4561,30 +4561,6 @@ paths:
                 $ref: '#/components/schemas/OrganisationView'
       tags:
       - Organisation
-  /invoice/external/{bid}:
-    post:
-      operationId: updateInvoice
-      parameters:
-      - explode: false
-        in: path
-        name: bid
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          '*/*':
-            schema:
-              $ref: '#/components/schemas/EndOfInvoiceResponse'
-        required: true
-      responses:
-        default:
-          content:
-            application/json: {}
-          description: default response
-      tags:
-      - User
   /invoice/external/paypal/{bid}:
     delete:
       operationId: cancelPaypalTransaction
@@ -4626,6 +4602,52 @@ paths:
           description: default response
       tags:
       - User
+  /invoice/external/{bid}:
+    post:
+      operationId: updateInvoice
+      parameters:
+      - explode: false
+        in: path
+        name: bid
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/EndOfInvoiceResponse'
+        required: true
+      responses:
+        default:
+          content:
+            application/json: {}
+          description: default response
+      tags:
+      - User
+  /vendor/apps:
+    get:
+      operationId: listApps
+      parameters:
+      - explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/AddonApplicationSummary'
+                type: array
+      tags:
+      - Products
   /vendor/apps/{addonId}/migration_callback:
     put:
       operationId: endAddonMigration
@@ -4663,28 +4685,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AddonView'
-      tags:
-      - Products
-  /vendor/apps:
-    get:
-      operationId: listApps
-      parameters:
-      - explode: true
-        in: query
-        name: offset
-        required: false
-        schema:
-          format: int32
-          type: integer
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/AddonApplicationSummary'
-                type: array
       tags:
       - Products
   /vendor/apps/{addonId}:
@@ -4959,6 +4959,46 @@ paths:
                 type: string
       tags:
       - User
+  /payments/assets/pay_button/{token}/button.png:
+    get:
+      operationId: getInvoiceStatusButton
+      parameters:
+      - explode: false
+        in: path
+        name: token
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            image/png: {}
+      tags:
+      - Payment
+  /payments/webhooks/stripe/sepa:
+    post:
+      operationId: stripeSepaWebhook
+      parameters:
+      - explode: false
+        in: header
+        name: Stripe-Signature
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        default:
+          content:
+            application/json: {}
+          description: default response
+      tags:
+      - Payment
   /payments/providers:
     get:
       operationId: getAvailablePaymentProviders
@@ -4970,17 +5010,6 @@ paths:
                 items:
                   $ref: '#/components/schemas/PaymentProviderView'
                 type: array
-      tags:
-      - Payment
-  /payments/tokens/stripe:
-    get:
-      operationId: getStripeToken
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BraintreeToken'
       tags:
       - Payment
   /payments/{bid}/end/stripe:
@@ -5037,44 +5066,15 @@ paths:
                 $ref: '#/components/schemas/InvoiceRendering'
       tags:
       - Payment
-  /payments/assets/pay_button/{token}/button.png:
+  /payments/tokens/stripe:
     get:
-      operationId: getInvoiceStatusButton
-      parameters:
-      - explode: false
-        in: path
-        name: token
-        required: true
-        schema:
-          type: string
-        style: simple
+      operationId: getStripeToken
       responses:
         "200":
           content:
-            image/png: {}
-      tags:
-      - Payment
-  /payments/webhooks/stripe/sepa:
-    post:
-      operationId: stripeSepaWebhook
-      parameters:
-      - explode: false
-        in: header
-        name: Stripe-Signature
-        required: false
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: string
-      responses:
-        default:
-          content:
-            application/json: {}
-          description: default response
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BraintreeToken'
       tags:
       - Payment
   /payments/coupons/{name}:
@@ -5146,6 +5146,65 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AddonProviderInfoFullView'
+      tags:
+      - Products
+  /products/addonproviders:
+    get:
+      operationId: getAddonProviders
+      parameters:
+      - explode: true
+        in: query
+        name: orgaId
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/AddonProviderInfoFullView'
+                type: array
+      tags:
+      - Products
+  /products/addonproviders/{provider_id}/versions:
+    get:
+      operationId: getAddonProviderVersions
+      parameters:
+      - explode: false
+        in: path
+        name: provider_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+      - Products
+  /products/addonproviders/{provider_id}/informations:
+    get:
+      operationId: getAddonProviderInfos
+      parameters:
+      - explode: false
+        in: path
+        name: provider_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
       tags:
       - Products
   /products/instances:
@@ -5237,65 +5296,6 @@ paths:
                 items:
                   type: string
                 type: array
-      tags:
-      - Products
-  /products/addonproviders:
-    get:
-      operationId: getAddonProviders
-      parameters:
-      - explode: true
-        in: query
-        name: orgaId
-        required: false
-        schema:
-          type: string
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/AddonProviderInfoFullView'
-                type: array
-      tags:
-      - Products
-  /products/addonproviders/{provider_id}/versions:
-    get:
-      operationId: getAddonProviderVersions
-      parameters:
-      - explode: false
-        in: path
-        name: provider_id
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                type: string
-      tags:
-      - Products
-  /products/addonproviders/{provider_id}/informations:
-    get:
-      operationId: getAddonProviderInfos
-      parameters:
-      - explode: false
-        in: path
-        name: provider_id
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                type: string
       tags:
       - Products
   /products/flavors:
@@ -5479,6 +5479,24 @@ paths:
                 type: string
       tags:
       - User
+  /self/validate_email:
+    get:
+      operationId: validateEmail
+      parameters:
+      - explode: true
+        in: query
+        name: validationKey
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        default:
+          content:
+            application/json: {}
+          description: default response
+      tags:
+      - Self
   /self:
     delete:
       operationId: deleteUser
@@ -5516,15 +5534,21 @@ paths:
                 $ref: '#/components/schemas/UserView'
       tags:
       - Self
-  /self/instances:
-    get:
-      operationId: getSelfInstancesForAllApps
+  /self/avatar:
+    put:
+      operationId: setUserAvatarFromString
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WannabeAvatarSource'
+        required: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SuperNovaInstanceMap'
+                $ref: '#/components/schemas/UrlView'
       tags:
       - Self
   /self/payment-info:
@@ -5536,24 +5560,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PaymentInfoView'
-      tags:
-      - Self
-  /self/validate_email:
-    get:
-      operationId: validateEmail
-      parameters:
-      - explode: true
-        in: query
-        name: validationKey
-        required: false
-        schema:
-          type: string
-        style: form
-      responses:
-        default:
-          content:
-            application/json: {}
-          description: default response
       tags:
       - Self
   /self/change_password:
@@ -5584,38 +5590,15 @@ paths:
                 $ref: '#/components/schemas/Message'
       tags:
       - Self
-  /self/avatar:
-    put:
-      operationId: setUserAvatarFromFile
-      requestBody:
-        content:
-          image/bmp:
-            schema:
-              format: binary
-              type: string
-          image/gif:
-            schema:
-              format: binary
-              type: string
-          image/jpeg:
-            schema:
-              format: binary
-              type: string
-          image/png:
-            schema:
-              format: binary
-              type: string
-          image/tiff:
-            schema:
-              format: binary
-              type: string
-        required: true
+  /self/instances:
+    get:
+      operationId: getSelfInstancesForAllApps
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UrlView'
+                $ref: '#/components/schemas/SuperNovaInstanceMap'
       tags:
       - Self
   /self/id:
@@ -5705,27 +5688,6 @@ paths:
                 type: array
       tags:
       - Self
-  /self/addons/{addonId}/applications:
-    get:
-      operationId: getSelfApplicationsLinkedToAddonByAddonId
-      parameters:
-      - explode: false
-        in: path
-        name: addonId
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/ApplicationView'
-                type: array
-      tags:
-      - Self
   /self/addons/{addonId}/sso:
     get:
       operationId: getAddonSSOData
@@ -5806,6 +5768,48 @@ paths:
                 $ref: '#/components/schemas/AddonView'
       tags:
       - Self
+  /self/addons/{addonId}/applications:
+    get:
+      operationId: getSelfApplicationsLinkedToAddonByAddonId
+      parameters:
+      - explode: false
+        in: path
+        name: addonId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ApplicationView'
+                type: array
+      tags:
+      - Self
+  /self/addons/{addonId}/env:
+    get:
+      operationId: getSelfAddonEnvByAddonId
+      parameters:
+      - explode: false
+        in: path
+        name: addonId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/AddonEnvironmentView'
+                type: array
+      tags:
+      - Self
   /self/addons/preorders:
     post:
       operationId: preorderSelfAddon
@@ -5875,27 +5879,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AddonView'
-      tags:
-      - Self
-  /self/addons/{addonId}/env:
-    get:
-      operationId: getSelfAddonEnvByAddonId
-      parameters:
-      - explode: false
-        in: path
-        name: addonId
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/AddonEnvironmentView'
-                type: array
       tags:
       - Self
   /self/applications/{appId}/dependencies:
@@ -6223,201 +6206,6 @@ paths:
                 type: array
       tags:
       - Self
-  /self/applications:
-    get:
-      operationId: getSelfApplications
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/ApplicationView'
-                type: array
-      tags:
-      - Self
-    post:
-      operationId: addSelfApplication
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/WannabeApplication'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApplicationView'
-      tags:
-      - Self
-  /self/applications/{appId}/env/{envName}:
-    delete:
-      operationId: removeSelfApplicationEnvByAppIdAndEnvName
-      parameters:
-      - explode: false
-        in: path
-        name: appId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: envName
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApplicationView'
-      tags:
-      - Self
-    put:
-      operationId: editSelfApplicationEnvByAppIdAndEnvName
-      parameters:
-      - explode: false
-        in: path
-        name: appId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: envName
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/WannabeValue'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApplicationView'
-      tags:
-      - Self
-  /self/applications/{appId}/env:
-    get:
-      operationId: getSelfApplicationEnvByAppId
-      parameters:
-      - explode: false
-        in: path
-        name: appId
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/AddonEnvironmentView'
-                type: array
-      tags:
-      - Self
-    put:
-      operationId: editSelfApplicationEnvByAppId
-      parameters:
-      - explode: false
-        in: path
-        name: appId
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: string
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApplicationView'
-      tags:
-      - Self
-  /self/applications/{appId}/addons/env:
-    get:
-      operationId: getSelfEnvOfAddonsLinkedToApplicationByAppId
-      parameters:
-      - explode: false
-        in: path
-        name: appId
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/LinkedAddonEnvironmentView'
-                type: array
-      tags:
-      - Self
-  /self/applications/{appId}/exposed_env:
-    get:
-      operationId: getSelfExposedEnvByAppId
-      parameters:
-      - explode: false
-        in: path
-        name: appId
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                type: string
-      tags:
-      - Self
-    put:
-      operationId: updateSelfExposedEnvByAppId
-      parameters:
-      - explode: false
-        in: path
-        name: appId
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: string
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Message'
-      tags:
-      - Self
   /self/applications/{appId}:
     delete:
       operationId: deleteSelfApplicationByAppId
@@ -6698,6 +6486,172 @@ paths:
           description: default response
       tags:
       - Self
+  /self/applications/{appId}/env/{envName}:
+    delete:
+      operationId: removeSelfApplicationEnvByAppIdAndEnvName
+      parameters:
+      - explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: envName
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationView'
+      tags:
+      - Self
+    put:
+      operationId: editSelfApplicationEnvByAppIdAndEnvName
+      parameters:
+      - explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: envName
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WannabeValue'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationView'
+      tags:
+      - Self
+  /self/applications/{appId}/env:
+    get:
+      operationId: getSelfApplicationEnvByAppId
+      parameters:
+      - explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/AddonEnvironmentView'
+                type: array
+      tags:
+      - Self
+    put:
+      operationId: editSelfApplicationEnvByAppId
+      parameters:
+      - explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationView'
+      tags:
+      - Self
+  /self/applications/{appId}/addons/env:
+    get:
+      operationId: getSelfEnvOfAddonsLinkedToApplicationByAppId
+      parameters:
+      - explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/LinkedAddonEnvironmentView'
+                type: array
+      tags:
+      - Self
+  /self/applications/{appId}/exposed_env:
+    get:
+      operationId: getSelfExposedEnvByAppId
+      parameters:
+      - explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+      - Self
+    put:
+      operationId: updateSelfExposedEnvByAppId
+      parameters:
+      - explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+      tags:
+      - Self
   /self/applications/{appId}/buildflavor:
     put:
       operationId: setSelfBuildInstanceFlavorByAppId
@@ -6720,6 +6674,86 @@ paths:
           content:
             application/json: {}
           description: default response
+      tags:
+      - Self
+  /self/applications:
+    get:
+      operationId: getSelfApplications
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ApplicationView'
+                type: array
+      tags:
+      - Self
+    post:
+      operationId: addSelfApplication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WannabeApplication'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationView'
+      tags:
+      - Self
+  /self/applications/{appId}/deployments/{deploymentId}:
+    get:
+      operationId: getApplicationDeployment
+      parameters:
+      - explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: deploymentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        default:
+          content:
+            application/json: {}
+          description: default response
+      tags:
+      - Self
+  /self/applications/{appId}/deployments/{deploymentId}/instances:
+    delete:
+      operationId: cancelDeploy
+      parameters:
+      - explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: deploymentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
       tags:
       - Self
   /self/applications/{appId}/deployments:
@@ -6764,57 +6798,6 @@ paths:
                 type: array
       tags:
       - Self
-  /self/applications/{appId}/deployments/{deploymentId}/instances:
-    delete:
-      operationId: cancelDeploy
-      parameters:
-      - explode: false
-        in: path
-        name: appId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: deploymentId
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Message'
-      tags:
-      - Self
-  /self/applications/{appId}/deployments/{deploymentId}:
-    get:
-      operationId: getApplicationDeployment
-      parameters:
-      - explode: false
-        in: path
-        name: appId
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: deploymentId
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        default:
-          content:
-            application/json: {}
-          description: default response
-      tags:
-      - Self
   /self/cli_tokens:
     get:
       operationId: getSelfCliTokens
@@ -6834,32 +6817,6 @@ paths:
                 items:
                   $ref: '#/components/schemas/CliTokenView'
                 type: array
-      tags:
-      - Self
-  /self/consumers:
-    get:
-      operationId: getSelfConsumers
-      responses:
-        default:
-          content:
-            application/json: {}
-          description: default response
-      tags:
-      - Self
-    post:
-      operationId: createSelfConsumer
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/WannabeOAuth1Consumer'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OAuth1ConsumerView'
       tags:
       - Self
   /self/consumers/{key}/secret:
@@ -6927,6 +6884,32 @@ paths:
         schema:
           type: string
         style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WannabeOAuth1Consumer'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuth1ConsumerView'
+      tags:
+      - Self
+  /self/consumers:
+    get:
+      operationId: getSelfConsumers
+      responses:
+        default:
+          content:
+            application/json: {}
+          description: default response
+      tags:
+      - Self
+    post:
+      operationId: createSelfConsumer
       requestBody:
         content:
           application/json:
@@ -7047,6 +7030,19 @@ paths:
                 type: array
       tags:
       - Self
+  /self/keys:
+    get:
+      operationId: getSshKeys
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/SshKeyView'
+                type: array
+      tags:
+      - Self
   /self/keys/{key}:
     delete:
       operationId: removeSshKey
@@ -7082,40 +7078,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Message'
-      tags:
-      - Self
-  /self/keys:
-    get:
-      operationId: getSshKeys
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/SshKeyView'
-                type: array
-      tags:
-      - Self
-  /self/mfa/{kind}/backupcodes:
-    get:
-      operationId: getBackupCodes
-      parameters:
-      - explode: false
-        in: path
-        name: kind
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/MFARecoveryCode'
-                type: array
       tags:
       - Self
   /self/mfa/{kind}:
@@ -7176,6 +7138,27 @@ paths:
           description: default response
       tags:
       - Self
+  /self/mfa/{kind}/backupcodes:
+    get:
+      operationId: getBackupCodes
+      parameters:
+      - explode: false
+        in: path
+        name: kind
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/MFARecoveryCode'
+                type: array
+      tags:
+      - Self
   /self/mfa/{kind}/confirmation:
     post:
       operationId: validateMFA
@@ -7200,17 +7183,6 @@ paths:
           description: default response
       tags:
       - Self
-  /self/payments/tokens/stripe:
-    get:
-      operationId: getSelfStripeToken
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BraintreeToken'
-      tags:
-      - Self
   /self/payments/monthlyinvoice:
     get:
       operationId: getSelfMonthlyInvoice
@@ -7220,66 +7192,6 @@ paths:
             application/json:
               schema:
                 type: string
-      tags:
-      - Self
-  /self/payments/billings/{bid}:
-    delete:
-      operationId: deleteSelfPurchaseOrder
-      parameters:
-      - explode: false
-        in: path
-        name: bid
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        default:
-          content:
-            application/json: {}
-          description: default response
-      tags:
-      - Self
-    get:
-      operationId: getSelfInvoiceById
-      parameters:
-      - explode: false
-        in: path
-        name: bid
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InvoiceRendering'
-      tags:
-      - Self
-    put:
-      operationId: chooseSelfPaymentProvider
-      parameters:
-      - explode: false
-        in: path
-        name: bid
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PaymentProviderSelection'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NextInPaymentFlow'
       tags:
       - Self
   /self/payments/billings/{bid}.pdf:
@@ -7372,6 +7284,66 @@ paths:
                 $ref: '#/components/schemas/PriceWithTaxInfo'
       tags:
       - Self
+  /self/payments/billings/{bid}:
+    delete:
+      operationId: deleteSelfPurchaseOrder
+      parameters:
+      - explode: false
+        in: path
+        name: bid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        default:
+          content:
+            application/json: {}
+          description: default response
+      tags:
+      - Self
+    get:
+      operationId: getSelfInvoiceById
+      parameters:
+      - explode: false
+        in: path
+        name: bid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoiceRendering'
+      tags:
+      - Self
+    put:
+      operationId: chooseSelfPaymentProvider
+      parameters:
+      - explode: false
+        in: path
+        name: bid
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentProviderSelection'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NextInPaymentFlow'
+      tags:
+      - Self
   /self/payments/recurring:
     delete:
       operationId: deleteSelfRecurrentPayment
@@ -7390,6 +7362,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RecurrentPaymentView'
+      tags:
+      - Self
+  /self/payments/tokens/stripe:
+    get:
+      operationId: getSelfStripeToken
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BraintreeToken'
       tags:
       - Self
   /self/payments/methods:
@@ -7421,24 +7404,6 @@ paths:
                 $ref: '#/components/schemas/PaymentMethodView'
       tags:
       - Self
-  /self/payments/methods/{mId}:
-    delete:
-      operationId: deleteSelfCard
-      parameters:
-      - explode: false
-        in: path
-        name: mId
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        default:
-          content:
-            application/json: {}
-          description: default response
-      tags:
-      - Self
   /self/payments/methods/default:
     get:
       operationId: getSelfDefaultMethod
@@ -7458,6 +7423,24 @@ paths:
             schema:
               $ref: '#/components/schemas/PaymentData'
         required: true
+      responses:
+        default:
+          content:
+            application/json: {}
+          description: default response
+      tags:
+      - Self
+  /self/payments/methods/{mId}:
+    delete:
+      operationId: deleteSelfCard
+      parameters:
+      - explode: false
+        in: path
+        name: mId
+        required: true
+        schema:
+          type: string
+        style: simple
       responses:
         default:
           content:
@@ -7650,6 +7633,16 @@ components:
         priv:
           type: boolean
       type: object
+    OAuthTransactionView:
+      example:
+        redirectUri: redirectUri
+        transactionId: transactionId
+      properties:
+        transactionId:
+          type: string
+        redirectUri:
+          type: string
+      type: object
     SshKeyView:
       example:
         name: name
@@ -7721,21 +7714,18 @@ components:
         id:
           type: string
       type: object
-    OAuthTransactionView:
+    UrlView:
       example:
-        redirectUri: redirectUri
-        transactionId: transactionId
+        url: url
       properties:
-        transactionId:
-          type: string
-        redirectUri:
+        url:
           type: string
       type: object
-    NamespaceView:
+    WannabeAvatarSource:
       example:
-        namespace: namespace
+        source: source
       properties:
-        namespace:
+        source:
           type: string
       type: object
     OrganisationView:
@@ -7867,16 +7857,11 @@ components:
             type: string
           type: object
       type: object
-    UrlView:
+    NamespaceView:
       example:
-        url: url
+        namespace: namespace
       properties:
-        url:
-          type: string
-      type: object
-    WannabeAvatarSource:
-      properties:
-        source:
+        namespace:
           type: string
       type: object
     AddonProviderInfoView:
@@ -7935,6 +7920,80 @@ components:
             type: string
           type: array
       type: object
+    WannabeAddonProviderInfos:
+      example:
+        website: website
+        supportEmail: supportEmail
+        name: name
+        twitterName: twitterName
+        shortDesc: shortDesc
+        analyticsId: analyticsId
+        longDesc: longDesc
+        logoUrl: logoUrl
+        googlePlusName: googlePlusName
+      properties:
+        name:
+          type: string
+        website:
+          type: string
+        supportEmail:
+          type: string
+        googlePlusName:
+          type: string
+        twitterName:
+          type: string
+        analyticsId:
+          type: string
+        shortDesc:
+          type: string
+        longDesc:
+          type: string
+        logoUrl:
+          type: string
+      type: object
+    AddonFeatureView:
+      example:
+        name_code: name_code
+        name: name
+        type: BOOLEAN
+      properties:
+        name:
+          type: string
+        type:
+          enum:
+          - BOOLEAN
+          - INTERVAL
+          - FILESIZE
+          - NUMBER
+          - PERCENTAGE
+          - STRING
+          - OBJECT
+          - BYTES
+          - BOOLEAN_SHARED
+          type: string
+        name_code:
+          type: string
+      type: object
+    WannabeAddonFeature:
+      example:
+        name: name
+        type: BOOLEAN
+      properties:
+        name:
+          type: string
+        type:
+          enum:
+          - BOOLEAN
+          - INTERVAL
+          - FILESIZE
+          - NUMBER
+          - PERCENTAGE
+          - STRING
+          - OBJECT
+          - BYTES
+          - BOOLEAN_SHARED
+          type: string
+      type: object
     AddonFeatureInstanceView:
       example:
         name_code: name_code
@@ -7960,29 +8019,6 @@ components:
         value:
           type: string
         computable_value:
-          type: string
-        name_code:
-          type: string
-      type: object
-    AddonFeatureView:
-      example:
-        name_code: name_code
-        name: name
-        type: BOOLEAN
-      properties:
-        name:
-          type: string
-        type:
-          enum:
-          - BOOLEAN
-          - INTERVAL
-          - FILESIZE
-          - NUMBER
-          - PERCENTAGE
-          - STRING
-          - OBJECT
-          - BYTES
-          - BOOLEAN_SHARED
           type: string
         name_code:
           type: string
@@ -8027,6 +8063,44 @@ components:
           items:
             type: string
           type: array
+      type: object
+    WannabeAddonPlan:
+      example:
+        features:
+        - name_code: name_code
+          name: name
+          computable_value: computable_value
+          type: BOOLEAN
+          value: value
+        - name_code: name_code
+          name: name
+          computable_value: computable_value
+          type: BOOLEAN
+          value: value
+        price: 0.8008281904610115
+        name: name
+        slug: slug
+      properties:
+        name:
+          type: string
+        slug:
+          type: string
+        price:
+          type: number
+        features:
+          items:
+            $ref: '#/components/schemas/AddonFeatureInstanceView'
+          type: array
+      type: object
+    AddonProviderSSOData:
+      example:
+        macaroon: macaroon
+        url: url
+      properties:
+        url:
+          type: string
+        macaroon:
+          type: string
       type: object
     AddonProviderInfoFullView:
       example:
@@ -8138,95 +8212,6 @@ components:
             $ref: '#/components/schemas/AddonFeatureView'
           type: array
       type: object
-    WannabeAddonFeature:
-      example:
-        name: name
-        type: BOOLEAN
-      properties:
-        name:
-          type: string
-        type:
-          enum:
-          - BOOLEAN
-          - INTERVAL
-          - FILESIZE
-          - NUMBER
-          - PERCENTAGE
-          - STRING
-          - OBJECT
-          - BYTES
-          - BOOLEAN_SHARED
-          type: string
-      type: object
-    WannabeAddonPlan:
-      example:
-        features:
-        - name_code: name_code
-          name: name
-          computable_value: computable_value
-          type: BOOLEAN
-          value: value
-        - name_code: name_code
-          name: name
-          computable_value: computable_value
-          type: BOOLEAN
-          value: value
-        price: 0.8008281904610115
-        name: name
-        slug: slug
-      properties:
-        name:
-          type: string
-        slug:
-          type: string
-        price:
-          type: number
-        features:
-          items:
-            $ref: '#/components/schemas/AddonFeatureInstanceView'
-          type: array
-      type: object
-    AddonProviderSSOData:
-      example:
-        macaroon: macaroon
-        url: url
-      properties:
-        url:
-          type: string
-        macaroon:
-          type: string
-      type: object
-    WannabeAddonProviderInfos:
-      example:
-        website: website
-        supportEmail: supportEmail
-        name: name
-        twitterName: twitterName
-        shortDesc: shortDesc
-        analyticsId: analyticsId
-        longDesc: longDesc
-        logoUrl: logoUrl
-        googlePlusName: googlePlusName
-      properties:
-        name:
-          type: string
-        website:
-          type: string
-        supportEmail:
-          type: string
-        googlePlusName:
-          type: string
-        twitterName:
-          type: string
-        analyticsId:
-          type: string
-        shortDesc:
-          type: string
-        longDesc:
-          type: string
-        logoUrl:
-          type: string
-      type: object
     WannabeAddonProvider:
       example:
         name: name
@@ -8297,6 +8282,74 @@ components:
           type: string
         sso_url:
           type: string
+      type: object
+    AddonView:
+      example:
+        provider:
+          website: website
+          regions:
+          - regions
+          - regions
+          twitterName: twitterName
+          canUpgrade: true
+          logoUrl: logoUrl
+          googlePlusName: googlePlusName
+          supportEmail: supportEmail
+          name: name
+          shortDesc: shortDesc
+          id: id
+          analyticsId: analyticsId
+          longDesc: longDesc
+          openInNewTab: true
+          status: ALPHA
+        name: name
+        id: id
+        realId: realId
+        region: region
+        creationDate: 0
+        plan:
+          features:
+          - name_code: name_code
+            name: name
+            computable_value: computable_value
+            type: BOOLEAN
+            value: value
+          - name_code: name_code
+            name: name
+            computable_value: computable_value
+            type: BOOLEAN
+            value: value
+          price: 0.8008281904610115
+          name: name
+          price_id: price_id
+          id: id
+          zones:
+          - zones
+          - zones
+          slug: slug
+        configKeys:
+        - configKeys
+        - configKeys
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        realId:
+          type: string
+        region:
+          type: string
+        provider:
+          $ref: '#/components/schemas/AddonProviderInfoView'
+        plan:
+          $ref: '#/components/schemas/AddonPlanView'
+        creationDate:
+          format: int64
+          type: integer
+        configKeys:
+          items:
+            type: string
+          type: array
       type: object
     ApplicationView:
       example:
@@ -8735,73 +8788,168 @@ components:
         fqdn:
           type: string
       type: object
-    AddonView:
+    AddonEnvironmentView:
       example:
-        provider:
-          website: website
-          regions:
-          - regions
-          - regions
-          twitterName: twitterName
-          canUpgrade: true
-          logoUrl: logoUrl
-          googlePlusName: googlePlusName
-          supportEmail: supportEmail
-          name: name
-          shortDesc: shortDesc
-          id: id
-          analyticsId: analyticsId
-          longDesc: longDesc
-          openInNewTab: true
-          status: ALPHA
         name: name
+        value: value
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+      type: object
+    SetupIntentView:
+      description: PaymentIntent id from Stripe
+      example:
+        clientSecret: clientSecret
         id: id
-        realId: realId
-        region: region
-        creationDate: 0
-        plan:
-          features:
-          - name_code: name_code
-            name: name
-            computable_value: computable_value
-            type: BOOLEAN
-            value: value
-          - name_code: name_code
-            name: name
-            computable_value: computable_value
-            type: BOOLEAN
-            value: value
-          price: 0.8008281904610115
-          name: name
-          price_id: price_id
+        ownerId: ownerId
+        customer: customer
+      properties:
+        ownerId:
+          type: string
+        id:
+          type: string
+        clientSecret:
+          type: string
+        customer:
+          type: string
+      type: object
+    WannabeAddonProvision:
+      example:
+        sepaSourceId: sepaSourceId
+        linkedApp: linkedApp
+        providerId: providerId
+        name: name
+        options:
+          key: options
+        paymentIntent:
+          clientSecret: clientSecret
           id: id
-          zones:
-          - zones
-          - zones
-          slug: slug
-        configKeys:
-        - configKeys
-        - configKeys
+          ownerId: ownerId
+          customer: customer
+        region: region
+        plan: plan
+        version: version
+        paymentMethodType: CREDITCARD
+      properties:
+        providerId:
+          description: Id of the add-on provider
+          type: string
+        plan:
+          description: Id of the price plan
+          type: string
+        linkedApp:
+          type: string
+        name:
+          description: Name of the future add-on, for display.
+          type: string
+        region:
+          description: Region to provision the add-on in.
+          type: string
+        options:
+          additionalProperties:
+            description: Options to add to the provision call.
+            type: string
+          description: Options to add to the provision call.
+          type: object
+        version:
+          description: Version of the add-on
+          type: string
+        paymentIntent:
+          $ref: '#/components/schemas/SetupIntentView'
+        paymentMethodType:
+          description: Payment method type
+          enum:
+          - CREDITCARD
+          - PAYPAL
+          - SEPA_DEBIT
+          type: string
+        sepaSourceId:
+          description: Id of the SEPA debit source
+          type: string
+      required:
+      - plan
+      - providerId
+      - region
+      type: object
+    SuperNovaFlavor:
+      example:
+        mem: 6
+        cpus: 1
+        price: 5.962133916683182
+        name: name
+      properties:
+        name:
+          type: string
+        mem:
+          format: int32
+          type: integer
+        cpus:
+          format: int32
+          type: integer
+        price:
+          format: double
+          type: number
+      type: object
+    SuperNovaInstanceView:
+      example:
+        flavor:
+          mem: 6
+          cpus: 1
+          price: 5.962133916683182
+          name: name
+        deployNumber: 5
+        displayName: displayName
+        appId: appId
+        ip: ip
+        commit: commit
+        appPort: 0
+        id: id
+        state: BOOTING
+        instanceNumber: 2
+        creationDate: 7
+        deployId: deployId
       properties:
         id:
           type: string
-        name:
+        appId:
           type: string
-        realId:
+        ip:
           type: string
-        region:
+        appPort:
+          format: int32
+          type: integer
+        state:
+          enum:
+          - BOOTING
+          - STARTING
+          - DEPLOYING
+          - MIGRATION_IN_PROGRESS
+          - TASK_IN_PROGRESS
+          - READY
+          - UP
+          - GHOST
+          - STOPPING
+          - DELETED
           type: string
-        provider:
-          $ref: '#/components/schemas/AddonProviderInfoView'
-        plan:
-          $ref: '#/components/schemas/AddonPlanView'
+        flavor:
+          $ref: '#/components/schemas/SuperNovaFlavor'
+        commit:
+          type: string
+        deployNumber:
+          format: int32
+          type: integer
+        deployId:
+          type: string
+        instanceNumber:
+          format: int32
+          type: integer
+        displayName:
+          type: string
         creationDate:
           format: int64
           type: integer
-        configKeys:
-          items:
-            type: string
-          type: array
       type: object
     InvoiceLineRendering:
       example:
@@ -8999,81 +9147,6 @@ components:
         job:
           type: string
       type: object
-    SetupIntentView:
-      description: PaymentIntent id from Stripe
-      example:
-        clientSecret: clientSecret
-        id: id
-        ownerId: ownerId
-        customer: customer
-      properties:
-        ownerId:
-          type: string
-        id:
-          type: string
-        clientSecret:
-          type: string
-        customer:
-          type: string
-      type: object
-    WannabeAddonProvision:
-      example:
-        sepaSourceId: sepaSourceId
-        linkedApp: linkedApp
-        providerId: providerId
-        name: name
-        options:
-          key: options
-        paymentIntent:
-          clientSecret: clientSecret
-          id: id
-          ownerId: ownerId
-          customer: customer
-        region: region
-        plan: plan
-        version: version
-        paymentMethodType: CREDITCARD
-      properties:
-        providerId:
-          description: Id of the add-on provider
-          type: string
-        plan:
-          description: Id of the price plan
-          type: string
-        linkedApp:
-          type: string
-        name:
-          description: Name of the future add-on, for display.
-          type: string
-        region:
-          description: Region to provision the add-on in.
-          type: string
-        options:
-          additionalProperties:
-            description: Options to add to the provision call.
-            type: string
-          description: Options to add to the provision call.
-          type: object
-        version:
-          description: Version of the add-on
-          type: string
-        paymentIntent:
-          $ref: '#/components/schemas/SetupIntentView'
-        paymentMethodType:
-          description: Payment method type
-          enum:
-          - CREDITCARD
-          - PAYPAL
-          - SEPA_DEBIT
-          type: string
-        sepaSourceId:
-          description: Id of the SEPA debit source
-          type: string
-      required:
-      - plan
-      - providerId
-      - region
-      type: object
     StripeConfirmationErrorMessage:
       properties:
         id:
@@ -9103,94 +9176,6 @@ components:
           type: string
         version:
           type: string
-      type: object
-    AddonEnvironmentView:
-      example:
-        name: name
-        value: value
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-      type: object
-    SuperNovaFlavor:
-      example:
-        mem: 6
-        cpus: 1
-        price: 5.962133916683182
-        name: name
-      properties:
-        name:
-          type: string
-        mem:
-          format: int32
-          type: integer
-        cpus:
-          format: int32
-          type: integer
-        price:
-          format: double
-          type: number
-      type: object
-    SuperNovaInstanceView:
-      example:
-        flavor:
-          mem: 6
-          cpus: 1
-          price: 5.962133916683182
-          name: name
-        deployNumber: 5
-        displayName: displayName
-        appId: appId
-        ip: ip
-        commit: commit
-        appPort: 0
-        id: id
-        state: BOOTING
-        instanceNumber: 2
-        creationDate: 7
-        deployId: deployId
-      properties:
-        id:
-          type: string
-        appId:
-          type: string
-        ip:
-          type: string
-        appPort:
-          format: int32
-          type: integer
-        state:
-          enum:
-          - BOOTING
-          - STARTING
-          - DEPLOYING
-          - MIGRATION_IN_PROGRESS
-          - TASK_IN_PROGRESS
-          - READY
-          - UP
-          - GHOST
-          - STOPPING
-          - DELETED
-          type: string
-        flavor:
-          $ref: '#/components/schemas/SuperNovaFlavor'
-        commit:
-          type: string
-        deployNumber:
-          format: int32
-          type: integer
-        deployId:
-          type: string
-        instanceNumber:
-          format: int32
-          type: integer
-        displayName:
-          type: string
-        creationDate:
-          format: int64
-          type: integer
       type: object
     Author:
       example:
@@ -9363,6 +9348,39 @@ components:
         name:
           type: string
       type: object
+    WannabeBranch:
+      example:
+        branch: branch
+      properties:
+        branch:
+          type: string
+      type: object
+    TcpRedirView:
+      example:
+        port: 0
+        namespace: namespace
+      properties:
+        namespace:
+          type: string
+        port:
+          format: int64
+          type: integer
+      type: object
+    WannabeNamespace:
+      example:
+        namespace: namespace
+        minPort: 0
+        maxPort: 6
+      properties:
+        namespace:
+          type: string
+        minPort:
+          format: int64
+          type: integer
+        maxPort:
+          format: int64
+          type: integer
+      type: object
     WannabeValue:
       example:
         value: value
@@ -9392,44 +9410,18 @@ components:
             $ref: '#/components/schemas/AddonEnvironmentView'
           type: array
       type: object
-    TcpRedirView:
-      example:
-        port: 0
-        namespace: namespace
-      properties:
-        namespace:
-          type: string
-        port:
-          format: int64
-          type: integer
-      type: object
-    WannabeNamespace:
-      example:
-        namespace: namespace
-        minPort: 0
-        maxPort: 6
-      properties:
-        namespace:
-          type: string
-        minPort:
-          format: int64
-          type: integer
-        maxPort:
-          format: int64
-          type: integer
-      type: object
-    WannabeBranch:
-      example:
-        branch: branch
-      properties:
-        branch:
-          type: string
-      type: object
     WannabeBuildFlavor:
       example:
         flavorName: flavorName
       properties:
         flavorName:
+          type: string
+      type: object
+    SecretView:
+      example:
+        secret: secret
+      properties:
+        secret:
           type: string
       type: object
     OAuth1ConsumerView:
@@ -9534,13 +9526,6 @@ components:
             type: boolean
           type: object
       type: object
-    SecretView:
-      example:
-        secret: secret
-      properties:
-        secret:
-          type: string
-      type: object
     DropCountView:
       example:
         count: 0.8008281904610115
@@ -9577,16 +9562,6 @@ components:
         job:
           type: string
         email:
-          type: string
-      type: object
-    BraintreeToken:
-      example:
-        merchantId: merchantId
-        token: token
-      properties:
-        merchantId:
-          type: string
-        token:
           type: string
       type: object
     WannabeMaxCredits:
@@ -9783,6 +9758,16 @@ components:
         hasPassword:
           type: boolean
       type: object
+    BraintreeToken:
+      example:
+        merchantId: merchantId
+        token: token
+      properties:
+        merchantId:
+          type: string
+        token:
+          type: string
+      type: object
     PaymentMethodView:
       example:
         bankCode: bankCode
@@ -9920,16 +9905,6 @@ components:
         error:
           $ref: '#/components/schemas/EndOfInvoiceError'
       type: object
-    WannabeAddonConfig:
-      example:
-        config:
-          key: config
-      properties:
-        config:
-          additionalProperties:
-            type: string
-          type: object
-      type: object
     AddonApplicationSummary:
       example:
         callback_url: callback_url
@@ -9948,6 +9923,16 @@ components:
           type: string
         owner_id:
           type: string
+      type: object
+    WannabeAddonConfig:
+      example:
+        config:
+          key: config
+      properties:
+        config:
+          additionalProperties:
+            type: string
+          type: object
       type: object
     AddonApplicationInfo:
       example:
@@ -10282,15 +10267,6 @@ components:
         subscriptionSource:
           type: string
       type: object
-    SuperNovaInstanceMap:
-      additionalProperties:
-        $ref: '#/components/schemas/SuperNovaInstanceView'
-      example:
-        empty: true
-      properties:
-        empty:
-          type: boolean
-      type: object
     WannabePassword:
       example:
         dropTokens: true
@@ -10302,6 +10278,15 @@ components:
         newPassword:
           type: string
         dropTokens:
+          type: boolean
+      type: object
+    SuperNovaInstanceMap:
+      additionalProperties:
+        $ref: '#/components/schemas/SuperNovaInstanceView'
+      example:
+        empty: true
+      properties:
+        empty:
           type: boolean
       type: object
     AddonSSOData:
@@ -10345,11 +10330,16 @@ components:
           type: string
       type: object
     WannabeMFAFav:
+      example:
+        favourite: true
       properties:
         favourite:
           type: boolean
       type: object
     WannabeMFACreds:
+      example:
+        code: code
+        revokeTokens: true
       properties:
         revokeTokens:
           type: boolean

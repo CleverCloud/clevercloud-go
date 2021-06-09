@@ -42,28 +42,53 @@ Method | HTTP request | Description
 
 ## AskForPasswordResetViaForm
 
-> string AskForPasswordResetViaForm(ctx, optional)
+> string AskForPasswordResetViaForm(ctx).Login(login).DropTokens(dropTokens).CleverFlavor(cleverFlavor).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    login := "login_example" // string |  (optional)
+    dropTokens := "dropTokens_example" // string |  (optional)
+    cleverFlavor := "cleverFlavor_example" // string |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserApi.AskForPasswordResetViaForm(context.Background()).Login(login).DropTokens(dropTokens).CleverFlavor(cleverFlavor).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.AskForPasswordResetViaForm``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `AskForPasswordResetViaForm`: string
+    fmt.Fprintf(os.Stdout, "Response from `UserApi.AskForPasswordResetViaForm`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAskForPasswordResetViaFormRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***AskForPasswordResetViaFormOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a AskForPasswordResetViaFormOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **login** | **optional.String**|  | 
- **dropTokens** | **optional.String**|  | 
- **cleverFlavor** | **optional.String**|  | 
+ **login** | **string** |  | 
+ **dropTokens** | **string** |  | 
+ **cleverFlavor** | **string** |  | 
 
 ### Return type
 
@@ -85,18 +110,53 @@ No authorization required
 
 ## AuthorizePaypalTransaction
 
-> AuthorizePaypalTransaction(ctx, bid, paymentData)
+> AuthorizePaypalTransaction(ctx, bid).PaymentData(paymentData).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    bid := "bid_example" // string | 
+    paymentData := *openapiclient.NewPaymentData() // PaymentData | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserApi.AuthorizePaypalTransaction(context.Background(), bid).PaymentData(paymentData).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.AuthorizePaypalTransaction``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**bid** | **string**|  | 
-**paymentData** | [**PaymentData**](PaymentData.md)|  | 
+**bid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAuthorizePaypalTransactionRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **paymentData** | [**PaymentData**](PaymentData.md) |  | 
 
 ### Return type
 
@@ -118,17 +178,51 @@ No authorization required
 
 ## CancelPaypalTransaction
 
-> CancelPaypalTransaction(ctx, bid)
+> CancelPaypalTransaction(ctx, bid).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    bid := "bid_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserApi.CancelPaypalTransaction(context.Background(), bid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.CancelPaypalTransaction``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**bid** | **string**|  | 
+**bid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCancelPaypalTransactionRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -150,28 +244,55 @@ No authorization required
 
 ## ConfirmPasswordResetRequest
 
-> string ConfirmPasswordResetRequest(ctx, key, optional)
+> string ConfirmPasswordResetRequest(ctx, key).CleverFlavor(cleverFlavor).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    key := "key_example" // string | 
+    cleverFlavor := "cleverFlavor_example" // string |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserApi.ConfirmPasswordResetRequest(context.Background(), key).CleverFlavor(cleverFlavor).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.ConfirmPasswordResetRequest``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ConfirmPasswordResetRequest`: string
+    fmt.Fprintf(os.Stdout, "Response from `UserApi.ConfirmPasswordResetRequest`: %v\n", resp)
+}
+```
+
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**key** | **string**|  | 
- **optional** | ***ConfirmPasswordResetRequestOpts** | optional parameters | nil if no parameters
+**key** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ConfirmPasswordResetRequestOpts struct
+Other parameters are passed through a pointer to a apiConfirmPasswordResetRequestRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cleverFlavor** | **optional.String**|  | 
+ **cleverFlavor** | **string** |  | 
 
 ### Return type
 
@@ -193,34 +314,63 @@ No authorization required
 
 ## CreateUserFromForm
 
-> CreateUserFromForm(ctx, optional)
+> CreateUserFromForm(ctx).InvitationKey(invitationKey).AddonBetaInvitationKey(addonBetaInvitationKey).Email(email).Pass(pass).UrlNext(urlNext).Terms(terms).SubscriptionSource(subscriptionSource).CleverFlavor(cleverFlavor).OauthToken(oauthToken).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    invitationKey := "invitationKey_example" // string |  (optional)
+    addonBetaInvitationKey := "addonBetaInvitationKey_example" // string |  (optional)
+    email := "email_example" // string |  (optional)
+    pass := "pass_example" // string |  (optional)
+    urlNext := "urlNext_example" // string |  (optional)
+    terms := "terms_example" // string |  (optional)
+    subscriptionSource := "subscriptionSource_example" // string |  (optional)
+    cleverFlavor := "cleverFlavor_example" // string |  (optional)
+    oauthToken := "oauthToken_example" // string |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserApi.CreateUserFromForm(context.Background()).InvitationKey(invitationKey).AddonBetaInvitationKey(addonBetaInvitationKey).Email(email).Pass(pass).UrlNext(urlNext).Terms(terms).SubscriptionSource(subscriptionSource).CleverFlavor(cleverFlavor).OauthToken(oauthToken).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.CreateUserFromForm``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateUserFromFormRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateUserFromFormOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a CreateUserFromFormOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **invitationKey** | **optional.String**|  | 
- **addonBetaInvitationKey** | **optional.String**|  | 
- **email** | **optional.String**|  | 
- **pass** | **optional.String**|  | 
- **urlNext** | **optional.String**|  | 
- **terms** | **optional.String**|  | 
- **subscriptionSource** | **optional.String**|  | 
- **cleverFlavor** | **optional.String**|  | 
- **oauthToken** | **optional.String**|  | 
+ **invitationKey** | **string** |  | 
+ **addonBetaInvitationKey** | **string** |  | 
+ **email** | **string** |  | 
+ **pass** | **string** |  | 
+ **urlNext** | **string** |  | 
+ **terms** | **string** |  | 
+ **subscriptionSource** | **string** |  | 
+ **cleverFlavor** | **string** |  | 
+ **oauthToken** | **string** |  | 
 
 ### Return type
 
@@ -242,13 +392,44 @@ No authorization required
 
 ## DeleteGithubLink
 
-> Message DeleteGithubLink(ctx, )
+> Message DeleteGithubLink(ctx).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserApi.DeleteGithubLink(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.DeleteGithubLink``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeleteGithubLink`: Message
+    fmt.Fprintf(os.Stdout, "Response from `UserApi.DeleteGithubLink`: %v\n", resp)
+}
+```
+
+### Path Parameters
 
 This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteGithubLinkRequest struct via the builder pattern
+
 
 ### Return type
 
@@ -270,35 +451,67 @@ No authorization required
 
 ## FinsihGithubSignup
 
-> string FinsihGithubSignup(ctx, optional)
+> string FinsihGithubSignup(ctx).TransactionId(transactionId).Name(name).OtherId(otherId).OtherEmail(otherEmail).Password(password).AutoLink(autoLink).Terms(terms).InvitationKey(invitationKey).MfaKind(mfaKind).MfaAttempt(mfaAttempt).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    transactionId := "transactionId_example" // string |  (optional)
+    name := "name_example" // string |  (optional)
+    otherId := "otherId_example" // string |  (optional)
+    otherEmail := "otherEmail_example" // string |  (optional)
+    password := "password_example" // string |  (optional)
+    autoLink := "autoLink_example" // string |  (optional)
+    terms := "terms_example" // string |  (optional)
+    invitationKey := "invitationKey_example" // string |  (optional)
+    mfaKind := "mfaKind_example" // string |  (optional)
+    mfaAttempt := "mfaAttempt_example" // string |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserApi.FinsihGithubSignup(context.Background()).TransactionId(transactionId).Name(name).OtherId(otherId).OtherEmail(otherEmail).Password(password).AutoLink(autoLink).Terms(terms).InvitationKey(invitationKey).MfaKind(mfaKind).MfaAttempt(mfaAttempt).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.FinsihGithubSignup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `FinsihGithubSignup`: string
+    fmt.Fprintf(os.Stdout, "Response from `UserApi.FinsihGithubSignup`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiFinsihGithubSignupRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***FinsihGithubSignupOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a FinsihGithubSignupOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **transactionId** | **optional.String**|  | 
- **name** | **optional.String**|  | 
- **otherId** | **optional.String**|  | 
- **otherEmail** | **optional.String**|  | 
- **password** | **optional.String**|  | 
- **autoLink** | **optional.String**|  | 
- **terms** | **optional.String**|  | 
- **invitationKey** | **optional.String**|  | 
- **mfaKind** | **optional.String**|  | 
- **mfaAttempt** | **optional.String**|  | 
+ **transactionId** | **string** |  | 
+ **name** | **string** |  | 
+ **otherId** | **string** |  | 
+ **otherEmail** | **string** |  | 
+ **password** | **string** |  | 
+ **autoLink** | **string** |  | 
+ **terms** | **string** |  | 
+ **invitationKey** | **string** |  | 
+ **mfaKind** | **string** |  | 
+ **mfaAttempt** | **string** |  | 
 
 ### Return type
 
@@ -320,17 +533,53 @@ No authorization required
 
 ## GetApplications
 
-> []ApplicationView GetApplications(ctx, id)
+> []ApplicationView GetApplications(ctx, id).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    id := "id_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserApi.GetApplications(context.Background(), id).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GetApplications``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetApplications`: []ApplicationView
+    fmt.Fprintf(os.Stdout, "Response from `UserApi.GetApplications`: %v\n", resp)
+}
+```
+
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string**|  | 
+**id** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetApplicationsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -352,28 +601,55 @@ No authorization required
 
 ## GetEnv
 
-> string GetEnv(ctx, appId, optional)
+> string GetEnv(ctx, appId).Token(token).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    appId := "appId_example" // string | 
+    token := "token_example" // string |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserApi.GetEnv(context.Background(), appId).Token(token).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GetEnv``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetEnv`: string
+    fmt.Fprintf(os.Stdout, "Response from `UserApi.GetEnv`: %v\n", resp)
+}
+```
+
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**appId** | **string**|  | 
- **optional** | ***GetEnvOpts** | optional parameters | nil if no parameters
+**appId** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a GetEnvOpts struct
+Other parameters are passed through a pointer to a apiGetEnvRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **token** | **optional.String**|  | 
+ **token** | **string** |  | 
 
 ### Return type
 
@@ -395,17 +671,53 @@ No authorization required
 
 ## GetGitInfo
 
-> string GetGitInfo(ctx, userId)
+> string GetGitInfo(ctx, userId).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    userId := "userId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserApi.GetGitInfo(context.Background(), userId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GetGitInfo``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetGitInfo`: string
+    fmt.Fprintf(os.Stdout, "Response from `UserApi.GetGitInfo`: %v\n", resp)
+}
+```
+
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string**|  | 
+**userId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetGitInfoRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -427,13 +739,44 @@ No authorization required
 
 ## GetGithub
 
-> OAuthTransactionView GetGithub(ctx, )
+> OAuthTransactionView GetGithub(ctx).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserApi.GetGithub(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GetGithub``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetGithub`: OAuthTransactionView
+    fmt.Fprintf(os.Stdout, "Response from `UserApi.GetGithub`: %v\n", resp)
+}
+```
+
+### Path Parameters
 
 This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetGithubRequest struct via the builder pattern
+
 
 ### Return type
 
@@ -455,13 +798,44 @@ No authorization required
 
 ## GetGithubApplications
 
-> []OAuthApplicationView GetGithubApplications(ctx, )
+> []OAuthApplicationView GetGithubApplications(ctx).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserApi.GetGithubApplications(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GetGithubApplications``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetGithubApplications`: []OAuthApplicationView
+    fmt.Fprintf(os.Stdout, "Response from `UserApi.GetGithubApplications`: %v\n", resp)
+}
+```
+
+### Path Parameters
 
 This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetGithubApplicationsRequest struct via the builder pattern
+
 
 ### Return type
 
@@ -483,31 +857,57 @@ No authorization required
 
 ## GetGithubCallback
 
-> GetGithubCallback(ctx, optional)
+> GetGithubCallback(ctx).CcOAuthData(ccOAuthData).Code(code).State(state).Error_(error_).ErrorDescription(errorDescription).ErrorUri(errorUri).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    ccOAuthData := "ccOAuthData_example" // string |  (optional)
+    code := "code_example" // string |  (optional)
+    state := "state_example" // string |  (optional)
+    error_ := "error__example" // string |  (optional)
+    errorDescription := "errorDescription_example" // string |  (optional)
+    errorUri := "errorUri_example" // string |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserApi.GetGithubCallback(context.Background()).CcOAuthData(ccOAuthData).Code(code).State(state).Error_(error_).ErrorDescription(errorDescription).ErrorUri(errorUri).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GetGithubCallback``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetGithubCallbackRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***GetGithubCallbackOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a GetGithubCallbackOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **ccOAuthData** | **optional.String**|  | 
- **code** | **optional.String**|  | 
- **state** | **optional.String**|  | 
- **error_** | **optional.String**|  | 
- **errorDescription** | **optional.String**|  | 
- **errorUri** | **optional.String**|  | 
+ **ccOAuthData** | **string** |  | 
+ **code** | **string** |  | 
+ **state** | **string** |  | 
+ **error_** | **string** |  | 
+ **errorDescription** | **string** |  | 
+ **errorUri** | **string** |  | 
 
 ### Return type
 
@@ -529,13 +929,44 @@ No authorization required
 
 ## GetGithubEmails
 
-> []string GetGithubEmails(ctx, )
+> []string GetGithubEmails(ctx).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserApi.GetGithubEmails(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GetGithubEmails``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetGithubEmails`: []string
+    fmt.Fprintf(os.Stdout, "Response from `UserApi.GetGithubEmails`: %v\n", resp)
+}
+```
+
+### Path Parameters
 
 This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetGithubEmailsRequest struct via the builder pattern
+
 
 ### Return type
 
@@ -557,13 +988,44 @@ No authorization required
 
 ## GetGithubKeys
 
-> []SshKeyView GetGithubKeys(ctx, )
+> []SshKeyView GetGithubKeys(ctx).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserApi.GetGithubKeys(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GetGithubKeys``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetGithubKeys`: []SshKeyView
+    fmt.Fprintf(os.Stdout, "Response from `UserApi.GetGithubKeys`: %v\n", resp)
+}
+```
+
+### Path Parameters
 
 This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetGithubKeysRequest struct via the builder pattern
+
 
 ### Return type
 
@@ -585,27 +1047,51 @@ No authorization required
 
 ## GetGithubLink
 
-> string GetGithubLink(ctx, optional)
+> string GetGithubLink(ctx).TransactionId(transactionId).RedirectUrl(redirectUrl).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    transactionId := "transactionId_example" // string |  (optional)
+    redirectUrl := "redirectUrl_example" // string |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserApi.GetGithubLink(context.Background()).TransactionId(transactionId).RedirectUrl(redirectUrl).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GetGithubLink``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetGithubLink`: string
+    fmt.Fprintf(os.Stdout, "Response from `UserApi.GetGithubLink`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetGithubLinkRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***GetGithubLinkOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a GetGithubLinkOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **transactionId** | **optional.String**|  | 
- **redirectUrl** | **optional.String**|  | 
+ **transactionId** | **string** |  | 
+ **redirectUrl** | **string** |  | 
 
 ### Return type
 
@@ -627,32 +1113,59 @@ No authorization required
 
 ## GetGithubLogin
 
-> GetGithubLogin(ctx, optional)
+> GetGithubLogin(ctx).RedirectUrl(redirectUrl).FromAuthorize(fromAuthorize).CliToken(cliToken).CleverFlavor(cleverFlavor).OauthToken(oauthToken).InvitationKey(invitationKey).SubscriptionSource(subscriptionSource).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    redirectUrl := "redirectUrl_example" // string |  (optional)
+    fromAuthorize := "fromAuthorize_example" // string |  (optional)
+    cliToken := "cliToken_example" // string |  (optional)
+    cleverFlavor := "cleverFlavor_example" // string |  (optional)
+    oauthToken := "oauthToken_example" // string |  (optional)
+    invitationKey := "invitationKey_example" // string |  (optional)
+    subscriptionSource := "subscriptionSource_example" // string |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserApi.GetGithubLogin(context.Background()).RedirectUrl(redirectUrl).FromAuthorize(fromAuthorize).CliToken(cliToken).CleverFlavor(cleverFlavor).OauthToken(oauthToken).InvitationKey(invitationKey).SubscriptionSource(subscriptionSource).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GetGithubLogin``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetGithubLoginRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***GetGithubLoginOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a GetGithubLoginOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **redirectUrl** | **optional.String**|  | 
- **fromAuthorize** | **optional.String**|  | 
- **cliToken** | **optional.String**|  | 
- **cleverFlavor** | **optional.String**|  | 
- **oauthToken** | **optional.String**|  | 
- **invitationKey** | **optional.String**|  | 
- **subscriptionSource** | **optional.String**|  | 
+ **redirectUrl** | **string** |  | 
+ **fromAuthorize** | **string** |  | 
+ **cliToken** | **string** |  | 
+ **cleverFlavor** | **string** |  | 
+ **oauthToken** | **string** |  | 
+ **invitationKey** | **string** |  | 
+ **subscriptionSource** | **string** |  | 
 
 ### Return type
 
@@ -674,13 +1187,44 @@ No authorization required
 
 ## GetGithubUsername
 
-> string GetGithubUsername(ctx, )
+> string GetGithubUsername(ctx).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserApi.GetGithubUsername(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GetGithubUsername``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetGithubUsername`: string
+    fmt.Fprintf(os.Stdout, "Response from `UserApi.GetGithubUsername`: %v\n", resp)
+}
+```
+
+### Path Parameters
 
 This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetGithubUsernameRequest struct via the builder pattern
+
 
 ### Return type
 
@@ -702,30 +1246,57 @@ No authorization required
 
 ## GetLoginForm
 
-> string GetLoginForm(ctx, optional)
+> string GetLoginForm(ctx).SecondaryEmailKey(secondaryEmailKey).DeletionKey(deletionKey).FromAuthorize(fromAuthorize).CliToken(cliToken).CleverFlavor(cleverFlavor).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    secondaryEmailKey := "secondaryEmailKey_example" // string |  (optional)
+    deletionKey := "deletionKey_example" // string |  (optional)
+    fromAuthorize := "fromAuthorize_example" // string |  (optional)
+    cliToken := "cliToken_example" // string |  (optional)
+    cleverFlavor := "cleverFlavor_example" // string |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserApi.GetLoginForm(context.Background()).SecondaryEmailKey(secondaryEmailKey).DeletionKey(deletionKey).FromAuthorize(fromAuthorize).CliToken(cliToken).CleverFlavor(cleverFlavor).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GetLoginForm``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetLoginForm`: string
+    fmt.Fprintf(os.Stdout, "Response from `UserApi.GetLoginForm`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetLoginFormRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***GetLoginFormOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a GetLoginFormOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **secondaryEmailKey** | **optional.String**|  | 
- **deletionKey** | **optional.String**|  | 
- **fromAuthorize** | **optional.String**|  | 
- **cliToken** | **optional.String**|  | 
- **cleverFlavor** | **optional.String**|  | 
+ **secondaryEmailKey** | **string** |  | 
+ **deletionKey** | **string** |  | 
+ **fromAuthorize** | **string** |  | 
+ **cliToken** | **string** |  | 
+ **cleverFlavor** | **string** |  | 
 
 ### Return type
 
@@ -747,30 +1318,57 @@ No authorization required
 
 ## GetLoginForm1
 
-> string GetLoginForm1(ctx, optional)
+> string GetLoginForm1(ctx).SecondaryEmailKey(secondaryEmailKey).DeletionKey(deletionKey).FromAuthorize(fromAuthorize).CliToken(cliToken).CleverFlavor(cleverFlavor).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    secondaryEmailKey := "secondaryEmailKey_example" // string |  (optional)
+    deletionKey := "deletionKey_example" // string |  (optional)
+    fromAuthorize := "fromAuthorize_example" // string |  (optional)
+    cliToken := "cliToken_example" // string |  (optional)
+    cleverFlavor := "cleverFlavor_example" // string |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserApi.GetLoginForm1(context.Background()).SecondaryEmailKey(secondaryEmailKey).DeletionKey(deletionKey).FromAuthorize(fromAuthorize).CliToken(cliToken).CleverFlavor(cleverFlavor).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GetLoginForm1``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetLoginForm1`: string
+    fmt.Fprintf(os.Stdout, "Response from `UserApi.GetLoginForm1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetLoginForm1Request struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***GetLoginForm1Opts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a GetLoginForm1Opts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **secondaryEmailKey** | **optional.String**|  | 
- **deletionKey** | **optional.String**|  | 
- **fromAuthorize** | **optional.String**|  | 
- **cliToken** | **optional.String**|  | 
- **cleverFlavor** | **optional.String**|  | 
+ **secondaryEmailKey** | **string** |  | 
+ **deletionKey** | **string** |  | 
+ **fromAuthorize** | **string** |  | 
+ **cliToken** | **string** |  | 
+ **cleverFlavor** | **string** |  | 
 
 ### Return type
 
@@ -792,26 +1390,49 @@ No authorization required
 
 ## GetPasswordForgottenForm
 
-> string GetPasswordForgottenForm(ctx, optional)
+> string GetPasswordForgottenForm(ctx).CleverFlavor(cleverFlavor).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    cleverFlavor := "cleverFlavor_example" // string |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserApi.GetPasswordForgottenForm(context.Background()).CleverFlavor(cleverFlavor).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GetPasswordForgottenForm``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetPasswordForgottenForm`: string
+    fmt.Fprintf(os.Stdout, "Response from `UserApi.GetPasswordForgottenForm`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetPasswordForgottenFormRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***GetPasswordForgottenFormOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a GetPasswordForgottenFormOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **cleverFlavor** | **optional.String**|  | 
+ **cleverFlavor** | **string** |  | 
 
 ### Return type
 
@@ -833,28 +1454,53 @@ No authorization required
 
 ## GetSignupForm
 
-> string GetSignupForm(ctx, optional)
+> string GetSignupForm(ctx).InvitationKey(invitationKey).UrlNext(urlNext).CleverFlavor(cleverFlavor).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    invitationKey := "invitationKey_example" // string |  (optional)
+    urlNext := "urlNext_example" // string |  (optional)
+    cleverFlavor := "cleverFlavor_example" // string |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserApi.GetSignupForm(context.Background()).InvitationKey(invitationKey).UrlNext(urlNext).CleverFlavor(cleverFlavor).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GetSignupForm``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetSignupForm`: string
+    fmt.Fprintf(os.Stdout, "Response from `UserApi.GetSignupForm`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSignupFormRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***GetSignupFormOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a GetSignupFormOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **invitationKey** | **optional.String**|  | 
- **urlNext** | **optional.String**|  | 
- **cleverFlavor** | **optional.String**|  | 
+ **invitationKey** | **string** |  | 
+ **urlNext** | **string** |  | 
+ **cleverFlavor** | **string** |  | 
 
 ### Return type
 
@@ -876,28 +1522,53 @@ No authorization required
 
 ## GetSignupForm1
 
-> string GetSignupForm1(ctx, optional)
+> string GetSignupForm1(ctx).InvitationKey(invitationKey).UrlNext(urlNext).CleverFlavor(cleverFlavor).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    invitationKey := "invitationKey_example" // string |  (optional)
+    urlNext := "urlNext_example" // string |  (optional)
+    cleverFlavor := "cleverFlavor_example" // string |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserApi.GetSignupForm1(context.Background()).InvitationKey(invitationKey).UrlNext(urlNext).CleverFlavor(cleverFlavor).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GetSignupForm1``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetSignupForm1`: string
+    fmt.Fprintf(os.Stdout, "Response from `UserApi.GetSignupForm1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSignupForm1Request struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***GetSignupForm1Opts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a GetSignupForm1Opts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **invitationKey** | **optional.String**|  | 
- **urlNext** | **optional.String**|  | 
- **cleverFlavor** | **optional.String**|  | 
+ **invitationKey** | **string** |  | 
+ **urlNext** | **string** |  | 
+ **cleverFlavor** | **string** |  | 
 
 ### Return type
 
@@ -919,17 +1590,53 @@ No authorization required
 
 ## GetUserById
 
-> UserView GetUserById(ctx, id)
+> UserView GetUserById(ctx, id).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    id := "id_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserApi.GetUserById(context.Background(), id).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GetUserById``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetUserById`: UserView
+    fmt.Fprintf(os.Stdout, "Response from `UserApi.GetUserById`: %v\n", resp)
+}
+```
+
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string**|  | 
+**id** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetUserByIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -951,33 +1658,61 @@ No authorization required
 
 ## GithubSignup
 
-> GithubSignup(ctx, optional)
+> GithubSignup(ctx).RedirectUrl(redirectUrl).FromAuthorize(fromAuthorize).CliToken(cliToken).CleverFlavor(cleverFlavor).OauthToken(oauthToken).InvitationKey(invitationKey).SubscriptionSource(subscriptionSource).Terms(terms).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    redirectUrl := "redirectUrl_example" // string |  (optional)
+    fromAuthorize := "fromAuthorize_example" // string |  (optional)
+    cliToken := "cliToken_example" // string |  (optional)
+    cleverFlavor := "cleverFlavor_example" // string |  (optional)
+    oauthToken := "oauthToken_example" // string |  (optional)
+    invitationKey := "invitationKey_example" // string |  (optional)
+    subscriptionSource := "subscriptionSource_example" // string |  (optional)
+    terms := "terms_example" // string |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserApi.GithubSignup(context.Background()).RedirectUrl(redirectUrl).FromAuthorize(fromAuthorize).CliToken(cliToken).CleverFlavor(cleverFlavor).OauthToken(oauthToken).InvitationKey(invitationKey).SubscriptionSource(subscriptionSource).Terms(terms).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.GithubSignup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGithubSignupRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***GithubSignupOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a GithubSignupOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **redirectUrl** | **optional.String**|  | 
- **fromAuthorize** | **optional.String**|  | 
- **cliToken** | **optional.String**|  | 
- **cleverFlavor** | **optional.String**|  | 
- **oauthToken** | **optional.String**|  | 
- **invitationKey** | **optional.String**|  | 
- **subscriptionSource** | **optional.String**|  | 
- **terms** | **optional.String**|  | 
+ **redirectUrl** | **string** |  | 
+ **fromAuthorize** | **string** |  | 
+ **cliToken** | **string** |  | 
+ **cleverFlavor** | **string** |  | 
+ **oauthToken** | **string** |  | 
+ **invitationKey** | **string** |  | 
+ **subscriptionSource** | **string** |  | 
+ **terms** | **string** |  | 
 
 ### Return type
 
@@ -999,31 +1734,59 @@ No authorization required
 
 ## Login
 
-> string Login(ctx, optional)
+> string Login(ctx).Email(email).Pass(pass).FromAuthorize(fromAuthorize).CliToken(cliToken).CleverFlavor(cleverFlavor).OauthToken(oauthToken).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    email := "email_example" // string |  (optional)
+    pass := "pass_example" // string |  (optional)
+    fromAuthorize := "fromAuthorize_example" // string |  (optional)
+    cliToken := "cliToken_example" // string |  (optional)
+    cleverFlavor := "cleverFlavor_example" // string |  (optional)
+    oauthToken := "oauthToken_example" // string |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserApi.Login(context.Background()).Email(email).Pass(pass).FromAuthorize(fromAuthorize).CliToken(cliToken).CleverFlavor(cleverFlavor).OauthToken(oauthToken).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.Login``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `Login`: string
+    fmt.Fprintf(os.Stdout, "Response from `UserApi.Login`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiLoginRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***LoginOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a LoginOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **email** | **optional.String**|  | 
- **pass** | **optional.String**|  | 
- **fromAuthorize** | **optional.String**|  | 
- **cliToken** | **optional.String**|  | 
- **cleverFlavor** | **optional.String**|  | 
- **oauthToken** | **optional.String**|  | 
+ **email** | **string** |  | 
+ **pass** | **string** |  | 
+ **fromAuthorize** | **string** |  | 
+ **cliToken** | **string** |  | 
+ **cleverFlavor** | **string** |  | 
+ **oauthToken** | **string** |  | 
 
 ### Return type
 
@@ -1045,31 +1808,59 @@ No authorization required
 
 ## Login1
 
-> string Login1(ctx, optional)
+> string Login1(ctx).Email(email).Pass(pass).FromAuthorize(fromAuthorize).CliToken(cliToken).CleverFlavor(cleverFlavor).OauthToken(oauthToken).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    email := "email_example" // string |  (optional)
+    pass := "pass_example" // string |  (optional)
+    fromAuthorize := "fromAuthorize_example" // string |  (optional)
+    cliToken := "cliToken_example" // string |  (optional)
+    cleverFlavor := "cleverFlavor_example" // string |  (optional)
+    oauthToken := "oauthToken_example" // string |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserApi.Login1(context.Background()).Email(email).Pass(pass).FromAuthorize(fromAuthorize).CliToken(cliToken).CleverFlavor(cleverFlavor).OauthToken(oauthToken).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.Login1``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `Login1`: string
+    fmt.Fprintf(os.Stdout, "Response from `UserApi.Login1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiLogin1Request struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***Login1Opts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a Login1Opts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **email** | **optional.String**|  | 
- **pass** | **optional.String**|  | 
- **fromAuthorize** | **optional.String**|  | 
- **cliToken** | **optional.String**|  | 
- **cleverFlavor** | **optional.String**|  | 
- **oauthToken** | **optional.String**|  | 
+ **email** | **string** |  | 
+ **pass** | **string** |  | 
+ **fromAuthorize** | **string** |  | 
+ **cliToken** | **string** |  | 
+ **cleverFlavor** | **string** |  | 
+ **oauthToken** | **string** |  | 
 
 ### Return type
 
@@ -1091,33 +1882,63 @@ No authorization required
 
 ## MfaLogin
 
-> []OAuthApplicationView MfaLogin(ctx, optional)
+> []OAuthApplicationView MfaLogin(ctx).MfaKind(mfaKind).MfaAttempt(mfaAttempt).Email(email).AuthId(authId).FromAuthorize(fromAuthorize).CliToken(cliToken).CleverFlavor(cleverFlavor).OauthToken(oauthToken).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    mfaKind := "mfaKind_example" // string |  (optional)
+    mfaAttempt := "mfaAttempt_example" // string |  (optional)
+    email := "email_example" // string |  (optional)
+    authId := "authId_example" // string |  (optional)
+    fromAuthorize := "fromAuthorize_example" // string |  (optional)
+    cliToken := "cliToken_example" // string |  (optional)
+    cleverFlavor := "cleverFlavor_example" // string |  (optional)
+    oauthToken := "oauthToken_example" // string |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserApi.MfaLogin(context.Background()).MfaKind(mfaKind).MfaAttempt(mfaAttempt).Email(email).AuthId(authId).FromAuthorize(fromAuthorize).CliToken(cliToken).CleverFlavor(cleverFlavor).OauthToken(oauthToken).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.MfaLogin``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `MfaLogin`: []OAuthApplicationView
+    fmt.Fprintf(os.Stdout, "Response from `UserApi.MfaLogin`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiMfaLoginRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***MfaLoginOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a MfaLoginOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **mfaKind** | **optional.String**|  | 
- **mfaAttempt** | **optional.String**|  | 
- **email** | **optional.String**|  | 
- **authId** | **optional.String**|  | 
- **fromAuthorize** | **optional.String**|  | 
- **cliToken** | **optional.String**|  | 
- **cleverFlavor** | **optional.String**|  | 
- **oauthToken** | **optional.String**|  | 
+ **mfaKind** | **string** |  | 
+ **mfaAttempt** | **string** |  | 
+ **email** | **string** |  | 
+ **authId** | **string** |  | 
+ **fromAuthorize** | **string** |  | 
+ **cliToken** | **string** |  | 
+ **cleverFlavor** | **string** |  | 
+ **oauthToken** | **string** |  | 
 
 ### Return type
 
@@ -1139,33 +1960,63 @@ No authorization required
 
 ## MfaLogin1
 
-> []OAuthApplicationView MfaLogin1(ctx, optional)
+> []OAuthApplicationView MfaLogin1(ctx).MfaKind(mfaKind).MfaAttempt(mfaAttempt).Email(email).AuthId(authId).FromAuthorize(fromAuthorize).CliToken(cliToken).CleverFlavor(cleverFlavor).OauthToken(oauthToken).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    mfaKind := "mfaKind_example" // string |  (optional)
+    mfaAttempt := "mfaAttempt_example" // string |  (optional)
+    email := "email_example" // string |  (optional)
+    authId := "authId_example" // string |  (optional)
+    fromAuthorize := "fromAuthorize_example" // string |  (optional)
+    cliToken := "cliToken_example" // string |  (optional)
+    cleverFlavor := "cleverFlavor_example" // string |  (optional)
+    oauthToken := "oauthToken_example" // string |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserApi.MfaLogin1(context.Background()).MfaKind(mfaKind).MfaAttempt(mfaAttempt).Email(email).AuthId(authId).FromAuthorize(fromAuthorize).CliToken(cliToken).CleverFlavor(cleverFlavor).OauthToken(oauthToken).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.MfaLogin1``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `MfaLogin1`: []OAuthApplicationView
+    fmt.Fprintf(os.Stdout, "Response from `UserApi.MfaLogin1`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiMfaLogin1Request struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***MfaLogin1Opts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a MfaLogin1Opts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **mfaKind** | **optional.String**|  | 
- **mfaAttempt** | **optional.String**|  | 
- **email** | **optional.String**|  | 
- **authId** | **optional.String**|  | 
- **fromAuthorize** | **optional.String**|  | 
- **cliToken** | **optional.String**|  | 
- **cleverFlavor** | **optional.String**|  | 
- **oauthToken** | **optional.String**|  | 
+ **mfaKind** | **string** |  | 
+ **mfaAttempt** | **string** |  | 
+ **email** | **string** |  | 
+ **authId** | **string** |  | 
+ **fromAuthorize** | **string** |  | 
+ **cliToken** | **string** |  | 
+ **cleverFlavor** | **string** |  | 
+ **oauthToken** | **string** |  | 
 
 ### Return type
 
@@ -1187,30 +2038,55 @@ No authorization required
 
 ## PostGithubRedeploy
 
-> Message PostGithubRedeploy(ctx, githubWebhookPayload, optional)
+> Message PostGithubRedeploy(ctx).GithubWebhookPayload(githubWebhookPayload).UserAgent(userAgent).XGithubEvent(xGithubEvent).XHubSignature(xHubSignature).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    githubWebhookPayload := *openapiclient.NewGithubWebhookPayload() // GithubWebhookPayload | 
+    userAgent := "userAgent_example" // string |  (optional)
+    xGithubEvent := "xGithubEvent_example" // string |  (optional)
+    xHubSignature := "xHubSignature_example" // string |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserApi.PostGithubRedeploy(context.Background()).GithubWebhookPayload(githubWebhookPayload).UserAgent(userAgent).XGithubEvent(xGithubEvent).XHubSignature(xHubSignature).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.PostGithubRedeploy``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PostGithubRedeploy`: Message
+    fmt.Fprintf(os.Stdout, "Response from `UserApi.PostGithubRedeploy`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostGithubRedeployRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**githubWebhookPayload** | [**GithubWebhookPayload**](GithubWebhookPayload.md)|  | 
- **optional** | ***PostGithubRedeployOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a PostGithubRedeployOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **userAgent** | **optional.String**|  | 
- **xGithubEvent** | **optional.String**|  | 
- **xHubSignature** | **optional.String**|  | 
+ **githubWebhookPayload** | [**GithubWebhookPayload**](GithubWebhookPayload.md) |  | 
+ **userAgent** | **string** |  | 
+ **xGithubEvent** | **string** |  | 
+ **xHubSignature** | **string** |  | 
 
 ### Return type
 
@@ -1232,29 +2108,57 @@ No authorization required
 
 ## ResetPasswordForgotten
 
-> string ResetPasswordForgotten(ctx, key, optional)
+> string ResetPasswordForgotten(ctx, key).Pass(pass).Pass2(pass2).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    key := "key_example" // string | 
+    pass := "pass_example" // string |  (optional)
+    pass2 := "pass2_example" // string |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserApi.ResetPasswordForgotten(context.Background(), key).Pass(pass).Pass2(pass2).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.ResetPasswordForgotten``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ResetPasswordForgotten`: string
+    fmt.Fprintf(os.Stdout, "Response from `UserApi.ResetPasswordForgotten`: %v\n", resp)
+}
+```
+
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**key** | **string**|  | 
- **optional** | ***ResetPasswordForgottenOpts** | optional parameters | nil if no parameters
+**key** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a ResetPasswordForgottenOpts struct
+Other parameters are passed through a pointer to a apiResetPasswordForgottenRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **pass** | **optional.String**|  | 
- **pass2** | **optional.String**|  | 
+ **pass** | **string** |  | 
+ **pass2** | **string** |  | 
 
 ### Return type
 
@@ -1276,30 +2180,57 @@ No authorization required
 
 ## UpdateEnv
 
-> Message UpdateEnv(ctx, appId, body, optional)
+> Message UpdateEnv(ctx, appId).Body(body).Token(token).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    appId := "appId_example" // string | 
+    body := "body_example" // string | 
+    token := "token_example" // string |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserApi.UpdateEnv(context.Background(), appId).Body(body).Token(token).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.UpdateEnv``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateEnv`: Message
+    fmt.Fprintf(os.Stdout, "Response from `UserApi.UpdateEnv`: %v\n", resp)
+}
+```
+
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**appId** | **string**|  | 
-**body** | **string**|  | 
- **optional** | ***UpdateEnvOpts** | optional parameters | nil if no parameters
+**appId** | **string** |  | 
 
-### Optional Parameters
+### Other Parameters
 
-Optional parameters are passed through a pointer to a UpdateEnvOpts struct
+Other parameters are passed through a pointer to a apiUpdateEnvRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
-
- **token** | **optional.String**|  | 
+ **body** | **string** |  | 
+ **token** | **string** |  | 
 
 ### Return type
 
@@ -1321,18 +2252,53 @@ No authorization required
 
 ## UpdateInvoice
 
-> UpdateInvoice(ctx, bid, endOfInvoiceResponse)
+> UpdateInvoice(ctx, bid).EndOfInvoiceResponse(endOfInvoiceResponse).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    bid := "bid_example" // string | 
+    endOfInvoiceResponse := *openapiclient.NewEndOfInvoiceResponse() // EndOfInvoiceResponse | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserApi.UpdateInvoice(context.Background(), bid).EndOfInvoiceResponse(endOfInvoiceResponse).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserApi.UpdateInvoice``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**bid** | **string**|  | 
-**endOfInvoiceResponse** | [**EndOfInvoiceResponse**](EndOfInvoiceResponse.md)|  | 
+**bid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateInvoiceRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **endOfInvoiceResponse** | [**EndOfInvoiceResponse**](EndOfInvoiceResponse.md) |  | 
 
 ### Return type
 

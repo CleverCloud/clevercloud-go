@@ -18,31 +18,59 @@ Method | HTTP request | Description
 
 ## AuthorizeForm
 
-> string AuthorizeForm(ctx, optional)
+> string AuthorizeForm(ctx).Ccid(ccid).Cctk(cctk).OauthToken(oauthToken).Ccid2(ccid2).CliToken(cliToken).FromOauth(fromOauth).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    ccid := "ccid_example" // string |  (optional)
+    cctk := "cctk_example" // string |  (optional)
+    oauthToken := "oauthToken_example" // string |  (optional)
+    ccid2 := "ccid_example" // string |  (optional)
+    cliToken := "cliToken_example" // string |  (optional)
+    fromOauth := "fromOauth_example" // string |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AuthApi.AuthorizeForm(context.Background()).Ccid(ccid).Cctk(cctk).OauthToken(oauthToken).Ccid2(ccid2).CliToken(cliToken).FromOauth(fromOauth).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AuthApi.AuthorizeForm``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `AuthorizeForm`: string
+    fmt.Fprintf(os.Stdout, "Response from `AuthApi.AuthorizeForm`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAuthorizeFormRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***AuthorizeFormOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a AuthorizeFormOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **ccid** | **optional.String**|  | 
- **cctk** | **optional.String**|  | 
- **oauthToken** | **optional.String**|  | 
- **ccid2** | **optional.String**|  | 
- **cliToken** | **optional.String**|  | 
- **fromOauth** | **optional.String**|  | 
+ **ccid** | **string** |  | 
+ **cctk** | **string** |  | 
+ **oauthToken** | **string** |  | 
+ **ccid2** | **string** |  | 
+ **cliToken** | **string** |  | 
+ **fromOauth** | **string** |  | 
 
 ### Return type
 
@@ -64,39 +92,73 @@ No authorization required
 
 ## AuthorizeToken
 
-> AuthorizeToken(ctx, optional)
+> AuthorizeToken(ctx).Ccid(ccid).Cctk(cctk).Almighty(almighty).AccessOrganisations(accessOrganisations).ManageOrganisations(manageOrganisations).ManageOrganisationsServices(manageOrganisationsServices).ManageOrganisationsApplications(manageOrganisationsApplications).ManageOrganisationsMembers(manageOrganisationsMembers).AccessOrganisationsBills(accessOrganisationsBills).AccessOrganisationsCreditCount(accessOrganisationsCreditCount).AccessOrganisationsConsumptionStatistics(accessOrganisationsConsumptionStatistics).AccessPersonalInformation(accessPersonalInformation).ManagePersonalInformation(managePersonalInformation).ManageSshKeys(manageSshKeys).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    ccid := "ccid_example" // string |  (optional)
+    cctk := "cctk_example" // string |  (optional)
+    almighty := "almighty_example" // string |  (optional)
+    accessOrganisations := "accessOrganisations_example" // string |  (optional)
+    manageOrganisations := "manageOrganisations_example" // string |  (optional)
+    manageOrganisationsServices := "manageOrganisationsServices_example" // string |  (optional)
+    manageOrganisationsApplications := "manageOrganisationsApplications_example" // string |  (optional)
+    manageOrganisationsMembers := "manageOrganisationsMembers_example" // string |  (optional)
+    accessOrganisationsBills := "accessOrganisationsBills_example" // string |  (optional)
+    accessOrganisationsCreditCount := "accessOrganisationsCreditCount_example" // string |  (optional)
+    accessOrganisationsConsumptionStatistics := "accessOrganisationsConsumptionStatistics_example" // string |  (optional)
+    accessPersonalInformation := "accessPersonalInformation_example" // string |  (optional)
+    managePersonalInformation := "managePersonalInformation_example" // string |  (optional)
+    manageSshKeys := "manageSshKeys_example" // string |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AuthApi.AuthorizeToken(context.Background()).Ccid(ccid).Cctk(cctk).Almighty(almighty).AccessOrganisations(accessOrganisations).ManageOrganisations(manageOrganisations).ManageOrganisationsServices(manageOrganisationsServices).ManageOrganisationsApplications(manageOrganisationsApplications).ManageOrganisationsMembers(manageOrganisationsMembers).AccessOrganisationsBills(accessOrganisationsBills).AccessOrganisationsCreditCount(accessOrganisationsCreditCount).AccessOrganisationsConsumptionStatistics(accessOrganisationsConsumptionStatistics).AccessPersonalInformation(accessPersonalInformation).ManagePersonalInformation(managePersonalInformation).ManageSshKeys(manageSshKeys).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AuthApi.AuthorizeToken``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAuthorizeTokenRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***AuthorizeTokenOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a AuthorizeTokenOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **ccid** | **optional.String**|  | 
- **cctk** | **optional.String**|  | 
- **almighty** | **optional.String**|  | 
- **accessOrganisations** | **optional.String**|  | 
- **manageOrganisations** | **optional.String**|  | 
- **manageOrganisationsServices** | **optional.String**|  | 
- **manageOrganisationsApplications** | **optional.String**|  | 
- **manageOrganisationsMembers** | **optional.String**|  | 
- **accessOrganisationsBills** | **optional.String**|  | 
- **accessOrganisationsCreditCount** | **optional.String**|  | 
- **accessOrganisationsConsumptionStatistics** | **optional.String**|  | 
- **accessPersonalInformation** | **optional.String**|  | 
- **managePersonalInformation** | **optional.String**|  | 
- **manageSshKeys** | **optional.String**|  | 
+ **ccid** | **string** |  | 
+ **cctk** | **string** |  | 
+ **almighty** | **string** |  | 
+ **accessOrganisations** | **string** |  | 
+ **manageOrganisations** | **string** |  | 
+ **manageOrganisationsServices** | **string** |  | 
+ **manageOrganisationsApplications** | **string** |  | 
+ **manageOrganisationsMembers** | **string** |  | 
+ **accessOrganisationsBills** | **string** |  | 
+ **accessOrganisationsCreditCount** | **string** |  | 
+ **accessOrganisationsConsumptionStatistics** | **string** |  | 
+ **accessPersonalInformation** | **string** |  | 
+ **managePersonalInformation** | **string** |  | 
+ **manageSshKeys** | **string** |  | 
 
 ### Return type
 
@@ -118,13 +180,42 @@ No authorization required
 
 ## GetAvailableRights
 
-> GetAvailableRights(ctx, )
+> GetAvailableRights(ctx).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AuthApi.GetAvailableRights(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AuthApi.GetAvailableRights``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
 
 This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAvailableRightsRequest struct via the builder pattern
+
 
 ### Return type
 
@@ -146,26 +237,47 @@ No authorization required
 
 ## GetLoginData
 
-> GetLoginData(ctx, optional)
+> GetLoginData(ctx).OauthKey(oauthKey).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    oauthKey := "oauthKey_example" // string |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AuthApi.GetLoginData(context.Background()).OauthKey(oauthKey).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AuthApi.GetLoginData``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetLoginDataRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***GetLoginDataOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a GetLoginDataOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **oauthKey** | **optional.String**|  | 
+ **oauthKey** | **string** |  | 
 
 ### Return type
 
@@ -187,36 +299,67 @@ No authorization required
 
 ## PostAccessTokenRequest
 
-> PostAccessTokenRequest(ctx, optional)
+> PostAccessTokenRequest(ctx).OauthConsumerKey(oauthConsumerKey).OauthToken(oauthToken).OauthSignatureMethod(oauthSignatureMethod).OauthSignature(oauthSignature).OauthTimestamp(oauthTimestamp).OauthNonce(oauthNonce).OauthVersion(oauthVersion).OauthVerifier(oauthVerifier).OauthCallback(oauthCallback).OauthTokenSecret(oauthTokenSecret).OauthCallbackConfirmed(oauthCallbackConfirmed).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    oauthConsumerKey := "oauthConsumerKey_example" // string |  (optional)
+    oauthToken := "oauthToken_example" // string |  (optional)
+    oauthSignatureMethod := "oauthSignatureMethod_example" // string |  (optional)
+    oauthSignature := "oauthSignature_example" // string |  (optional)
+    oauthTimestamp := "oauthTimestamp_example" // string |  (optional)
+    oauthNonce := "oauthNonce_example" // string |  (optional)
+    oauthVersion := "oauthVersion_example" // string |  (optional)
+    oauthVerifier := "oauthVerifier_example" // string |  (optional)
+    oauthCallback := "oauthCallback_example" // string |  (optional)
+    oauthTokenSecret := "oauthTokenSecret_example" // string |  (optional)
+    oauthCallbackConfirmed := "oauthCallbackConfirmed_example" // string |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AuthApi.PostAccessTokenRequest(context.Background()).OauthConsumerKey(oauthConsumerKey).OauthToken(oauthToken).OauthSignatureMethod(oauthSignatureMethod).OauthSignature(oauthSignature).OauthTimestamp(oauthTimestamp).OauthNonce(oauthNonce).OauthVersion(oauthVersion).OauthVerifier(oauthVerifier).OauthCallback(oauthCallback).OauthTokenSecret(oauthTokenSecret).OauthCallbackConfirmed(oauthCallbackConfirmed).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AuthApi.PostAccessTokenRequest``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostAccessTokenRequestRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***PostAccessTokenRequestOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a PostAccessTokenRequestOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **oauthConsumerKey** | **optional.String**|  | 
- **oauthToken** | **optional.String**|  | 
- **oauthSignatureMethod** | **optional.String**|  | 
- **oauthSignature** | **optional.String**|  | 
- **oauthTimestamp** | **optional.String**|  | 
- **oauthNonce** | **optional.String**|  | 
- **oauthVersion** | **optional.String**|  | 
- **oauthVerifier** | **optional.String**|  | 
- **oauthCallback** | **optional.String**|  | 
- **oauthTokenSecret** | **optional.String**|  | 
- **oauthCallbackConfirmed** | **optional.String**|  | 
+ **oauthConsumerKey** | **string** |  | 
+ **oauthToken** | **string** |  | 
+ **oauthSignatureMethod** | **string** |  | 
+ **oauthSignature** | **string** |  | 
+ **oauthTimestamp** | **string** |  | 
+ **oauthNonce** | **string** |  | 
+ **oauthVersion** | **string** |  | 
+ **oauthVerifier** | **string** |  | 
+ **oauthCallback** | **string** |  | 
+ **oauthTokenSecret** | **string** |  | 
+ **oauthCallbackConfirmed** | **string** |  | 
 
 ### Return type
 
@@ -238,36 +381,67 @@ No authorization required
 
 ## PostAccessTokenRequestQuery
 
-> PostAccessTokenRequestQuery(ctx, optional)
+> PostAccessTokenRequestQuery(ctx).OauthConsumerKey(oauthConsumerKey).OauthToken(oauthToken).OauthSignatureMethod(oauthSignatureMethod).OauthSignature(oauthSignature).OauthTimestamp(oauthTimestamp).OauthNonce(oauthNonce).OauthVersion(oauthVersion).OauthVerifier(oauthVerifier).OauthCallback(oauthCallback).OauthTokenSecret(oauthTokenSecret).OauthCallbackConfirmed(oauthCallbackConfirmed).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    oauthConsumerKey := "oauthConsumerKey_example" // string |  (optional)
+    oauthToken := "oauthToken_example" // string |  (optional)
+    oauthSignatureMethod := "oauthSignatureMethod_example" // string |  (optional)
+    oauthSignature := "oauthSignature_example" // string |  (optional)
+    oauthTimestamp := "oauthTimestamp_example" // string |  (optional)
+    oauthNonce := "oauthNonce_example" // string |  (optional)
+    oauthVersion := "oauthVersion_example" // string |  (optional)
+    oauthVerifier := "oauthVerifier_example" // string |  (optional)
+    oauthCallback := "oauthCallback_example" // string |  (optional)
+    oauthTokenSecret := "oauthTokenSecret_example" // string |  (optional)
+    oauthCallbackConfirmed := "oauthCallbackConfirmed_example" // string |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AuthApi.PostAccessTokenRequestQuery(context.Background()).OauthConsumerKey(oauthConsumerKey).OauthToken(oauthToken).OauthSignatureMethod(oauthSignatureMethod).OauthSignature(oauthSignature).OauthTimestamp(oauthTimestamp).OauthNonce(oauthNonce).OauthVersion(oauthVersion).OauthVerifier(oauthVerifier).OauthCallback(oauthCallback).OauthTokenSecret(oauthTokenSecret).OauthCallbackConfirmed(oauthCallbackConfirmed).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AuthApi.PostAccessTokenRequestQuery``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostAccessTokenRequestQueryRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***PostAccessTokenRequestQueryOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a PostAccessTokenRequestQueryOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **oauthConsumerKey** | **optional.String**|  | 
- **oauthToken** | **optional.String**|  | 
- **oauthSignatureMethod** | **optional.String**|  | 
- **oauthSignature** | **optional.String**|  | 
- **oauthTimestamp** | **optional.String**|  | 
- **oauthNonce** | **optional.String**|  | 
- **oauthVersion** | **optional.String**|  | 
- **oauthVerifier** | **optional.String**|  | 
- **oauthCallback** | **optional.String**|  | 
- **oauthTokenSecret** | **optional.String**|  | 
- **oauthCallbackConfirmed** | **optional.String**|  | 
+ **oauthConsumerKey** | **string** |  | 
+ **oauthToken** | **string** |  | 
+ **oauthSignatureMethod** | **string** |  | 
+ **oauthSignature** | **string** |  | 
+ **oauthTimestamp** | **string** |  | 
+ **oauthNonce** | **string** |  | 
+ **oauthVersion** | **string** |  | 
+ **oauthVerifier** | **string** |  | 
+ **oauthCallback** | **string** |  | 
+ **oauthTokenSecret** | **string** |  | 
+ **oauthCallbackConfirmed** | **string** |  | 
 
 ### Return type
 
@@ -289,17 +463,49 @@ No authorization required
 
 ## PostAuthorize
 
-> Message PostAuthorize(ctx, wannabeAuthorization)
+> Message PostAuthorize(ctx).WannabeAuthorization(wannabeAuthorization).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    wannabeAuthorization := *openapiclient.NewWannabeAuthorization() // WannabeAuthorization | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AuthApi.PostAuthorize(context.Background()).WannabeAuthorization(wannabeAuthorization).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AuthApi.PostAuthorize``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PostAuthorize`: Message
+    fmt.Fprintf(os.Stdout, "Response from `AuthApi.PostAuthorize`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostAuthorizeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**wannabeAuthorization** | [**WannabeAuthorization**](WannabeAuthorization.md)|  | 
+ **wannabeAuthorization** | [**WannabeAuthorization**](WannabeAuthorization.md) |  | 
 
 ### Return type
 
@@ -321,37 +527,71 @@ No authorization required
 
 ## PostReqTokenRequest
 
-> string PostReqTokenRequest(ctx, optional)
+> string PostReqTokenRequest(ctx).CleverFlavor(cleverFlavor).OauthConsumerKey(oauthConsumerKey).OauthToken(oauthToken).OauthSignatureMethod(oauthSignatureMethod).OauthSignature(oauthSignature).OauthTimestamp(oauthTimestamp).OauthNonce(oauthNonce).OauthVersion(oauthVersion).OauthVerifier(oauthVerifier).OauthCallback(oauthCallback).OauthTokenSecret(oauthTokenSecret).OauthCallbackConfirmed(oauthCallbackConfirmed).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    cleverFlavor := "cleverFlavor_example" // string |  (optional)
+    oauthConsumerKey := "oauthConsumerKey_example" // string |  (optional)
+    oauthToken := "oauthToken_example" // string |  (optional)
+    oauthSignatureMethod := "oauthSignatureMethod_example" // string |  (optional)
+    oauthSignature := "oauthSignature_example" // string |  (optional)
+    oauthTimestamp := "oauthTimestamp_example" // string |  (optional)
+    oauthNonce := "oauthNonce_example" // string |  (optional)
+    oauthVersion := "oauthVersion_example" // string |  (optional)
+    oauthVerifier := "oauthVerifier_example" // string |  (optional)
+    oauthCallback := "oauthCallback_example" // string |  (optional)
+    oauthTokenSecret := "oauthTokenSecret_example" // string |  (optional)
+    oauthCallbackConfirmed := "oauthCallbackConfirmed_example" // string |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AuthApi.PostReqTokenRequest(context.Background()).CleverFlavor(cleverFlavor).OauthConsumerKey(oauthConsumerKey).OauthToken(oauthToken).OauthSignatureMethod(oauthSignatureMethod).OauthSignature(oauthSignature).OauthTimestamp(oauthTimestamp).OauthNonce(oauthNonce).OauthVersion(oauthVersion).OauthVerifier(oauthVerifier).OauthCallback(oauthCallback).OauthTokenSecret(oauthTokenSecret).OauthCallbackConfirmed(oauthCallbackConfirmed).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AuthApi.PostReqTokenRequest``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PostReqTokenRequest`: string
+    fmt.Fprintf(os.Stdout, "Response from `AuthApi.PostReqTokenRequest`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostReqTokenRequestRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***PostReqTokenRequestOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a PostReqTokenRequestOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **cleverFlavor** | **optional.String**|  | 
- **oauthConsumerKey** | **optional.String**|  | 
- **oauthToken** | **optional.String**|  | 
- **oauthSignatureMethod** | **optional.String**|  | 
- **oauthSignature** | **optional.String**|  | 
- **oauthTimestamp** | **optional.String**|  | 
- **oauthNonce** | **optional.String**|  | 
- **oauthVersion** | **optional.String**|  | 
- **oauthVerifier** | **optional.String**|  | 
- **oauthCallback** | **optional.String**|  | 
- **oauthTokenSecret** | **optional.String**|  | 
- **oauthCallbackConfirmed** | **optional.String**|  | 
+ **cleverFlavor** | **string** |  | 
+ **oauthConsumerKey** | **string** |  | 
+ **oauthToken** | **string** |  | 
+ **oauthSignatureMethod** | **string** |  | 
+ **oauthSignature** | **string** |  | 
+ **oauthTimestamp** | **string** |  | 
+ **oauthNonce** | **string** |  | 
+ **oauthVersion** | **string** |  | 
+ **oauthVerifier** | **string** |  | 
+ **oauthCallback** | **string** |  | 
+ **oauthTokenSecret** | **string** |  | 
+ **oauthCallbackConfirmed** | **string** |  | 
 
 ### Return type
 
@@ -373,37 +613,71 @@ No authorization required
 
 ## PostReqTokenRequestQueryString
 
-> string PostReqTokenRequestQueryString(ctx, optional)
+> string PostReqTokenRequestQueryString(ctx).CleverFlavor(cleverFlavor).OauthConsumerKey(oauthConsumerKey).OauthToken(oauthToken).OauthSignatureMethod(oauthSignatureMethod).OauthSignature(oauthSignature).OauthTimestamp(oauthTimestamp).OauthNonce(oauthNonce).OauthVersion(oauthVersion).OauthVerifier(oauthVerifier).OauthCallback(oauthCallback).OauthTokenSecret(oauthTokenSecret).OauthCallbackConfirmed(oauthCallbackConfirmed).Execute()
 
 
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    cleverFlavor := "cleverFlavor_example" // string |  (optional)
+    oauthConsumerKey := "oauthConsumerKey_example" // string |  (optional)
+    oauthToken := "oauthToken_example" // string |  (optional)
+    oauthSignatureMethod := "oauthSignatureMethod_example" // string |  (optional)
+    oauthSignature := "oauthSignature_example" // string |  (optional)
+    oauthTimestamp := "oauthTimestamp_example" // string |  (optional)
+    oauthNonce := "oauthNonce_example" // string |  (optional)
+    oauthVersion := "oauthVersion_example" // string |  (optional)
+    oauthVerifier := "oauthVerifier_example" // string |  (optional)
+    oauthCallback := "oauthCallback_example" // string |  (optional)
+    oauthTokenSecret := "oauthTokenSecret_example" // string |  (optional)
+    oauthCallbackConfirmed := "oauthCallbackConfirmed_example" // string |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AuthApi.PostReqTokenRequestQueryString(context.Background()).CleverFlavor(cleverFlavor).OauthConsumerKey(oauthConsumerKey).OauthToken(oauthToken).OauthSignatureMethod(oauthSignatureMethod).OauthSignature(oauthSignature).OauthTimestamp(oauthTimestamp).OauthNonce(oauthNonce).OauthVersion(oauthVersion).OauthVerifier(oauthVerifier).OauthCallback(oauthCallback).OauthTokenSecret(oauthTokenSecret).OauthCallbackConfirmed(oauthCallbackConfirmed).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AuthApi.PostReqTokenRequestQueryString``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PostReqTokenRequestQueryString`: string
+    fmt.Fprintf(os.Stdout, "Response from `AuthApi.PostReqTokenRequestQueryString`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostReqTokenRequestQueryStringRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***PostReqTokenRequestQueryStringOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-
-Optional parameters are passed through a pointer to a PostReqTokenRequestQueryStringOpts struct
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **cleverFlavor** | **optional.String**|  | 
- **oauthConsumerKey** | **optional.String**|  | 
- **oauthToken** | **optional.String**|  | 
- **oauthSignatureMethod** | **optional.String**|  | 
- **oauthSignature** | **optional.String**|  | 
- **oauthTimestamp** | **optional.String**|  | 
- **oauthNonce** | **optional.String**|  | 
- **oauthVersion** | **optional.String**|  | 
- **oauthVerifier** | **optional.String**|  | 
- **oauthCallback** | **optional.String**|  | 
- **oauthTokenSecret** | **optional.String**|  | 
- **oauthCallbackConfirmed** | **optional.String**|  | 
+ **cleverFlavor** | **string** |  | 
+ **oauthConsumerKey** | **string** |  | 
+ **oauthToken** | **string** |  | 
+ **oauthSignatureMethod** | **string** |  | 
+ **oauthSignature** | **string** |  | 
+ **oauthTimestamp** | **string** |  | 
+ **oauthNonce** | **string** |  | 
+ **oauthVersion** | **string** |  | 
+ **oauthVerifier** | **string** |  | 
+ **oauthCallback** | **string** |  | 
+ **oauthTokenSecret** | **string** |  | 
+ **oauthCallbackConfirmed** | **string** |  | 
 
 ### Return type
 
