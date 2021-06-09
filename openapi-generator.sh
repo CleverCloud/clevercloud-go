@@ -2,7 +2,7 @@
 
 set -e
 
-OPENAPI_GENERATOR_VERSION="4.3.1"
+OPENAPI_GENERATOR_VERSION="5.1.1"
 OPENAPI_GENERATOR_URL="https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/${OPENAPI_GENERATOR_VERSION}/openapi-generator-cli-${OPENAPI_GENERATOR_VERSION}.jar"
 OPENAPI_GENERATOR_PATH="./openapi-generator-cli.jar"
 
