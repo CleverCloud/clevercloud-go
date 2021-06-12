@@ -16,6 +16,42 @@ go get github.com/clevercloud/clevercloud-go/clevercloud
 
 See generated [ReadMe.md](./clevercloud/ReadMe.md)
 
-## Examples
+## Usage
 
-> ToDo
+To use the underlying API, you will need OAuth credentials, for further details please checkout our [API documentation](https://www.clever-cloud.com/doc/extend/cc-api/).
+
+With those credentials you need to instantiate the OAuth client and build the API client with it:
+
+```go
+import "github.com/clevercloud/clevercloud-go/clevercloud"
+
+oauth := clevercloud.NewOAuthClient("myConsumerKey", "myConsumerSecret")
+oauth.SetTokens("myCleverToken", "myCleverSecret")
+
+config := clevercloud.NewConfiguration()
+api := clevercloud.NewOAuthAPIClient(oauth, config)
+```
+
+Once you have an `api` object you can request any services provided by the client:
+
+- [AuthApi](./clevercloud/docs/AuthApi.md)
+- [DefaultApi](./clevercloud/docs/DefaultApi.md)
+- [OrganisationApi](./clevercloud/docs/OrganisationApi.md)
+- [PaymentApi](./clevercloud/docs/PaymentApi.md)
+- [ProductsApi](./clevercloud/docs/ProductsApi.md)
+- [SelfApi](./clevercloud/docs/SelfApi.md)
+- [UserApi](./clevercloud/docs/UserApi.md)
+
+For example:
+
+```go
+resp, r, err := api.SelfApi.GetUser(context.Background())
+if err != nil {
+    fmt.Printf("Error when calling `SelfApi.GetUser``: %v\n", err)
+
+    return
+}
+
+// response from `GetUser`: UserView
+fmt.Printf("Response from `SelfApi.GetUser`: %v\n", resp)
+```
