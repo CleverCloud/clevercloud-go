@@ -15,7 +15,16 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"os"
 	"strings"
+
+	"github.com/dghubble/oauth1"
+)
+
+const (
+	APIURL         = "https://api.clever-cloud.com/v2"
+	consumerKey    = "x9Dv3WBvHcZZgg3sLmzXTyi2FFhfSu"
+	consumerSecret = "RnUvL43r4RoUgH9cHqTzeeCh2v0nbv"
 )
 
 // contextKeys are used to identify the type of value in the context.
@@ -78,9 +87,9 @@ type ServerVariable struct {
 
 // ServerConfiguration stores the information about a server
 type ServerConfiguration struct {
-	URL string
+	URL         string
 	Description string
-	Variables map[string]ServerVariable
+	Variables   map[string]ServerVariable
 }
 
 // ServerConfigurations stores multiple ServerConfiguration items
@@ -95,22 +104,35 @@ type Configuration struct {
 	Debug            bool              `json:"debug,omitempty"`
 	Servers          ServerConfigurations
 	OperationServers map[string]ServerConfigurations
+	OAuthConfig      *oauth1.Config
+	OAuthToken       *oauth1.Token
 	HTTPClient       *http.Client
 }
 
 // NewConfiguration returns a new Configuration object
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
-		DefaultHeader:    make(map[string]string),
-		UserAgent:        "OpenAPI-Generator/0.1.0/go",
-		Debug:            false,
-		Servers:          ServerConfigurations{
+		DefaultHeader: make(map[string]string),
+		UserAgent:     "OpenAPI-Generator/0.1.0/go",
+		Debug:         false,
+		Servers: ServerConfigurations{
 			{
-				URL: "https://api.clever-cloud.com/v2",
+				URL:         "https://api.clever-cloud.com/v2",
 				Description: "The production API server",
 			},
 		},
-		OperationServers: map[string]ServerConfigurations{
+		OperationServers: map[string]ServerConfigurations{},
+		OAuthConfig: &oauth1.Config{
+			ConsumerKey:    consumerKey,
+			ConsumerSecret: consumerSecret,
+			Signer: &oauth1.HMAC256Signer{
+				ConsumerSecret: consumerSecret,
+			},
+			Endpoint: oauth1.Endpoint{
+				RequestTokenURL: APIURL + "/oauth/request_token",
+				AuthorizeURL:    APIURL + "/oauth/authorize",
+				AccessTokenURL:  APIURL + "/oauth/access_token",
+			},
 		},
 	}
 	return cfg
@@ -119,6 +141,19 @@ func NewConfiguration() *Configuration {
 // AddDefaultHeader adds a new HTTP header to the default header in the request
 func (c *Configuration) AddDefaultHeader(key string, value string) {
 	c.DefaultHeader[key] = value
+}
+
+// SetOAuthTokensFromEnv set oauth tokens from env
+func (c *Configuration) SetOAuthTokensFromEnv() {
+	c.SetOAuthTokens(os.Getenv("CLEVER_TOKEN"), os.Getenv("CLEVER_SECRET"))
+}
+
+// SetOAuthTokens set oauth tokens in configuration
+func (c *Configuration) SetOAuthTokens(token, secret string) {
+	c.OAuthToken = &oauth1.Token{
+		Token:       token,
+		TokenSecret: secret,
+	}
 }
 
 // URL formats template on a index using given variables
