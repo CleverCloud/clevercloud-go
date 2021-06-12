@@ -11,42 +11,13 @@ Method | HTTP request | Description
 
 ## GetBlogFeed
 
-> GetBlogFeed(ctx).Execute()
+> GetBlogFeed(ctx, )
 
 
 
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.GetBlogFeed(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.GetBlogFeed``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetBlogFeedRequest struct via the builder pattern
-
 
 ### Return type
 
@@ -68,42 +39,13 @@ No authorization required
 
 ## GetEngineeringFeed
 
-> GetEngineeringFeed(ctx).Execute()
+> GetEngineeringFeed(ctx, )
 
 
 
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.GetEngineeringFeed(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.GetEngineeringFeed``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetEngineeringFeedRequest struct via the builder pattern
-
 
 ### Return type
 

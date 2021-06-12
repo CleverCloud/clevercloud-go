@@ -29,53 +29,18 @@ Method | HTTP request | Description
 
 ## BillOwner
 
-> BillOwner(ctx, addonId).WannabeAddonBilling(wannabeAddonBilling).Execute()
+> BillOwner(ctx, addonId, wannabeAddonBilling)
 
 
 
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    addonId := "addonId_example" // string | 
-    wannabeAddonBilling := *openapiclient.NewWannabeAddonBilling() // WannabeAddonBilling | 
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ProductsApi.BillOwner(context.Background(), addonId).WannabeAddonBilling(wannabeAddonBilling).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProductsApi.BillOwner``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**addonId** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiBillOwnerRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **wannabeAddonBilling** | [**WannabeAddonBilling**](WannabeAddonBilling.md) |  | 
+**addonId** | **string**|  | 
+**wannabeAddonBilling** | [**WannabeAddonBilling**](WannabeAddonBilling.md)|  | 
 
 ### Return type
 
@@ -97,55 +62,18 @@ No authorization required
 
 ## EditApplicationConfiguration
 
-> AddonView EditApplicationConfiguration(ctx, addonId).WannabeAddonConfig(wannabeAddonConfig).Execute()
+> AddonView EditApplicationConfiguration(ctx, addonId, wannabeAddonConfig)
 
 
 
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    addonId := "addonId_example" // string | 
-    wannabeAddonConfig := *openapiclient.NewWannabeAddonConfig() // WannabeAddonConfig | 
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ProductsApi.EditApplicationConfiguration(context.Background(), addonId).WannabeAddonConfig(wannabeAddonConfig).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProductsApi.EditApplicationConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `EditApplicationConfiguration`: AddonView
-    fmt.Fprintf(os.Stdout, "Response from `ProductsApi.EditApplicationConfiguration`: %v\n", resp)
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**addonId** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiEditApplicationConfigurationRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **wannabeAddonConfig** | [**WannabeAddonConfig**](WannabeAddonConfig.md) |  | 
+**addonId** | **string**|  | 
+**wannabeAddonConfig** | [**WannabeAddonConfig**](WannabeAddonConfig.md)|  | 
 
 ### Return type
 
@@ -167,59 +95,31 @@ No authorization required
 
 ## EndAddonMigration
 
-> AddonView EndAddonMigration(ctx, addonId).WannabeAddonConfig(wannabeAddonConfig).PlanId(planId).Region(region).Execute()
+> AddonView EndAddonMigration(ctx, addonId, wannabeAddonConfig, optional)
 
 
 
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    addonId := "addonId_example" // string | 
-    wannabeAddonConfig := *openapiclient.NewWannabeAddonConfig() // WannabeAddonConfig | 
-    planId := "planId_example" // string |  (optional)
-    region := "region_example" // string |  (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ProductsApi.EndAddonMigration(context.Background(), addonId).WannabeAddonConfig(wannabeAddonConfig).PlanId(planId).Region(region).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProductsApi.EndAddonMigration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `EndAddonMigration`: AddonView
-    fmt.Fprintf(os.Stdout, "Response from `ProductsApi.EndAddonMigration`: %v\n", resp)
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**addonId** | **string** |  | 
+**addonId** | **string**|  | 
+**wannabeAddonConfig** | [**WannabeAddonConfig**](WannabeAddonConfig.md)|  | 
+ **optional** | ***EndAddonMigrationOpts** | optional parameters | nil if no parameters
 
-### Other Parameters
+### Optional Parameters
 
-Other parameters are passed through a pointer to a apiEndAddonMigrationRequest struct via the builder pattern
+Optional parameters are passed through a pointer to a EndAddonMigrationOpts struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **wannabeAddonConfig** | [**WannabeAddonConfig**](WannabeAddonConfig.md) |  | 
- **planId** | **string** |  | 
- **region** | **string** |  | 
+
+ **planId** | **optional.String**|  | 
+ **region** | **optional.String**|  | 
 
 ### Return type
 
@@ -241,55 +141,28 @@ No authorization required
 
 ## GetAddonProvider
 
-> AddonProviderInfoFullView GetAddonProvider(ctx, providerId).OrgaId(orgaId).Execute()
+> AddonProviderInfoFullView GetAddonProvider(ctx, providerId, optional)
 
 
 
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    providerId := "providerId_example" // string | 
-    orgaId := "orgaId_example" // string |  (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ProductsApi.GetAddonProvider(context.Background(), providerId).OrgaId(orgaId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProductsApi.GetAddonProvider``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetAddonProvider`: AddonProviderInfoFullView
-    fmt.Fprintf(os.Stdout, "Response from `ProductsApi.GetAddonProvider`: %v\n", resp)
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**providerId** | **string** |  | 
+**providerId** | **string**|  | 
+ **optional** | ***GetAddonProviderOpts** | optional parameters | nil if no parameters
 
-### Other Parameters
+### Optional Parameters
 
-Other parameters are passed through a pointer to a apiGetAddonProviderRequest struct via the builder pattern
+Optional parameters are passed through a pointer to a GetAddonProviderOpts struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **orgaId** | **string** |  | 
+ **orgaId** | **optional.String**|  | 
 
 ### Return type
 
@@ -311,53 +184,17 @@ No authorization required
 
 ## GetAddonProviderInfos
 
-> string GetAddonProviderInfos(ctx, providerId).Execute()
+> string GetAddonProviderInfos(ctx, providerId)
 
 
 
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    providerId := "providerId_example" // string | 
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ProductsApi.GetAddonProviderInfos(context.Background(), providerId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProductsApi.GetAddonProviderInfos``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetAddonProviderInfos`: string
-    fmt.Fprintf(os.Stdout, "Response from `ProductsApi.GetAddonProviderInfos`: %v\n", resp)
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**providerId** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetAddonProviderInfosRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
+**providerId** | **string**|  | 
 
 ### Return type
 
@@ -379,53 +216,17 @@ No authorization required
 
 ## GetAddonProviderVersions
 
-> string GetAddonProviderVersions(ctx, providerId).Execute()
+> string GetAddonProviderVersions(ctx, providerId)
 
 
 
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    providerId := "providerId_example" // string | 
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ProductsApi.GetAddonProviderVersions(context.Background(), providerId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProductsApi.GetAddonProviderVersions``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetAddonProviderVersions`: string
-    fmt.Fprintf(os.Stdout, "Response from `ProductsApi.GetAddonProviderVersions`: %v\n", resp)
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**providerId** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetAddonProviderVersionsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
+**providerId** | **string**|  | 
 
 ### Return type
 
@@ -447,49 +248,26 @@ No authorization required
 
 ## GetAddonProviders
 
-> []AddonProviderInfoFullView GetAddonProviders(ctx).OrgaId(orgaId).Execute()
+> []AddonProviderInfoFullView GetAddonProviders(ctx, optional)
 
 
 
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    orgaId := "orgaId_example" // string |  (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ProductsApi.GetAddonProviders(context.Background()).OrgaId(orgaId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProductsApi.GetAddonProviders``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetAddonProviders`: []AddonProviderInfoFullView
-    fmt.Fprintf(os.Stdout, "Response from `ProductsApi.GetAddonProviders`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetAddonProvidersRequest struct via the builder pattern
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **orgaId** | **string** |  | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***GetAddonProvidersOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a GetAddonProvidersOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **orgaId** | **optional.String**|  | 
 
 ### Return type
 
@@ -511,53 +289,17 @@ No authorization required
 
 ## GetApplicationInfo
 
-> AddonApplicationInfo GetApplicationInfo(ctx, addonId).Execute()
+> AddonApplicationInfo GetApplicationInfo(ctx, addonId)
 
 
 
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    addonId := "addonId_example" // string | 
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ProductsApi.GetApplicationInfo(context.Background(), addonId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProductsApi.GetApplicationInfo``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetApplicationInfo`: AddonApplicationInfo
-    fmt.Fprintf(os.Stdout, "Response from `ProductsApi.GetApplicationInfo`: %v\n", resp)
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**addonId** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetApplicationInfoRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
+**addonId** | **string**|  | 
 
 ### Return type
 
@@ -579,49 +321,26 @@ No authorization required
 
 ## GetAvailableInstances
 
-> []AvailableInstanceView GetAvailableInstances(ctx).For_(for_).Execute()
+> []AvailableInstanceView GetAvailableInstances(ctx, optional)
 
 
 
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    for_ := "for__example" // string |  (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ProductsApi.GetAvailableInstances(context.Background()).For_(for_).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProductsApi.GetAvailableInstances``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetAvailableInstances`: []AvailableInstanceView
-    fmt.Fprintf(os.Stdout, "Response from `ProductsApi.GetAvailableInstances`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetAvailableInstancesRequest struct via the builder pattern
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **for_** | **string** |  | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***GetAvailableInstancesOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a GetAvailableInstancesOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **for_** | **optional.String**|  | 
 
 ### Return type
 
@@ -643,53 +362,28 @@ No authorization required
 
 ## GetAvailablePackages
 
-> []PackageView GetAvailablePackages(ctx).Coupon(coupon).OrgaId(orgaId).Currency(currency).Execute()
+> []PackageView GetAvailablePackages(ctx, optional)
 
 
 
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    coupon := "coupon_example" // string |  (optional)
-    orgaId := "orgaId_example" // string |  (optional)
-    currency := "currency_example" // string |  (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ProductsApi.GetAvailablePackages(context.Background()).Coupon(coupon).OrgaId(orgaId).Currency(currency).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProductsApi.GetAvailablePackages``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetAvailablePackages`: []PackageView
-    fmt.Fprintf(os.Stdout, "Response from `ProductsApi.GetAvailablePackages`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetAvailablePackagesRequest struct via the builder pattern
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **coupon** | **string** |  | 
- **orgaId** | **string** |  | 
- **currency** | **string** |  | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***GetAvailablePackagesOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a GetAvailablePackagesOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **coupon** | **optional.String**|  | 
+ **orgaId** | **optional.String**|  | 
+ **currency** | **optional.String**|  | 
 
 ### Return type
 
@@ -711,44 +405,13 @@ No authorization required
 
 ## GetCountries
 
-> string GetCountries(ctx).Execute()
+> string GetCountries(ctx, )
 
 
 
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ProductsApi.GetCountries(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProductsApi.GetCountries``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetCountries`: string
-    fmt.Fprintf(os.Stdout, "Response from `ProductsApi.GetCountries`: %v\n", resp)
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetCountriesRequest struct via the builder pattern
-
 
 ### Return type
 
@@ -770,44 +433,13 @@ No authorization required
 
 ## GetCountryCodes
 
-> string GetCountryCodes(ctx).Execute()
+> string GetCountryCodes(ctx, )
 
 
 
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ProductsApi.GetCountryCodes(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProductsApi.GetCountryCodes``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetCountryCodes`: string
-    fmt.Fprintf(os.Stdout, "Response from `ProductsApi.GetCountryCodes`: %v\n", resp)
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetCountryCodesRequest struct via the builder pattern
-
 
 ### Return type
 
@@ -829,44 +461,13 @@ No authorization required
 
 ## GetExcahngeRates
 
-> []DropPriceView GetExcahngeRates(ctx).Execute()
+> []DropPriceView GetExcahngeRates(ctx, )
 
 
 
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ProductsApi.GetExcahngeRates(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProductsApi.GetExcahngeRates``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetExcahngeRates`: []DropPriceView
-    fmt.Fprintf(os.Stdout, "Response from `ProductsApi.GetExcahngeRates`: %v\n", resp)
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetExcahngeRatesRequest struct via the builder pattern
-
 
 ### Return type
 
@@ -888,49 +489,26 @@ No authorization required
 
 ## GetFlavors
 
-> []FlavorView GetFlavors(ctx).Context(context).Execute()
+> []FlavorView GetFlavors(ctx, optional)
 
 
 
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    context := "context_example" // string |  (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ProductsApi.GetFlavors(context.Background()).Context(context).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProductsApi.GetFlavors``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetFlavors`: []FlavorView
-    fmt.Fprintf(os.Stdout, "Response from `ProductsApi.GetFlavors`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetFlavorsRequest struct via the builder pattern
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **context** | **string** |  | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***GetFlavorsOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a GetFlavorsOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **context** | **optional.String**|  | 
 
 ### Return type
 
@@ -952,60 +530,31 @@ No authorization required
 
 ## GetInstance
 
-> AvailableInstanceView GetInstance(ctx, type_, version).For_(for_).App(app).Execute()
+> AvailableInstanceView GetInstance(ctx, type_, version, optional)
 
 
 
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    type_ := "type__example" // string | 
-    version := "version_example" // string | 
-    for_ := "for__example" // string |  (optional)
-    app := "app_example" // string |  (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ProductsApi.GetInstance(context.Background(), type_, version).For_(for_).App(app).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProductsApi.GetInstance``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetInstance`: AvailableInstanceView
-    fmt.Fprintf(os.Stdout, "Response from `ProductsApi.GetInstance`: %v\n", resp)
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**type_** | **string** |  | 
-**version** | **string** |  | 
+**type_** | **string**|  | 
+**version** | **string**|  | 
+ **optional** | ***GetInstanceOpts** | optional parameters | nil if no parameters
 
-### Other Parameters
+### Optional Parameters
 
-Other parameters are passed through a pointer to a apiGetInstanceRequest struct via the builder pattern
+Optional parameters are passed through a pointer to a GetInstanceOpts struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **for_** | **string** |  | 
- **app** | **string** |  | 
+ **for_** | **optional.String**|  | 
+ **app** | **optional.String**|  | 
 
 ### Return type
 
@@ -1027,44 +576,13 @@ No authorization required
 
 ## GetMFAKinds
 
-> []string GetMFAKinds(ctx).Execute()
+> []string GetMFAKinds(ctx, )
 
 
 
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ProductsApi.GetMFAKinds(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProductsApi.GetMFAKinds``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetMFAKinds`: []string
-    fmt.Fprintf(os.Stdout, "Response from `ProductsApi.GetMFAKinds`: %v\n", resp)
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetMFAKindsRequest struct via the builder pattern
-
 
 ### Return type
 
@@ -1086,44 +604,13 @@ No authorization required
 
 ## GetZones
 
-> []ZoneView GetZones(ctx).Execute()
+> []ZoneView GetZones(ctx, )
 
 
 
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ProductsApi.GetZones(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProductsApi.GetZones``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetZones`: []ZoneView
-    fmt.Fprintf(os.Stdout, "Response from `ProductsApi.GetZones`: %v\n", resp)
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetZonesRequest struct via the builder pattern
-
 
 ### Return type
 
@@ -1145,49 +632,26 @@ No authorization required
 
 ## ListApps
 
-> []AddonApplicationSummary ListApps(ctx).Offset(offset).Execute()
+> []AddonApplicationSummary ListApps(ctx, optional)
 
 
 
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    offset := int32(56) // int32 |  (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ProductsApi.ListApps(context.Background()).Offset(offset).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProductsApi.ListApps``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListApps`: []AddonApplicationSummary
-    fmt.Fprintf(os.Stdout, "Response from `ProductsApi.ListApps`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListAppsRequest struct via the builder pattern
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **offset** | **int32** |  | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***ListAppsOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a ListAppsOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **offset** | **optional.Int32**|  | 
 
 ### Return type
 
@@ -1209,51 +673,17 @@ No authorization required
 
 ## Logscollector
 
-> Logscollector(ctx, addonId).Execute()
+> Logscollector(ctx, addonId)
 
 
 
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    addonId := "addonId_example" // string | 
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ProductsApi.Logscollector(context.Background(), addonId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProductsApi.Logscollector``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**addonId** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiLogscollectorRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
+**addonId** | **string**|  | 
 
 ### Return type
 
@@ -1275,47 +705,17 @@ No authorization required
 
 ## ProvisionOtherAddon
 
-> ProvisionOtherAddon(ctx).WannabeInterAddonProvision(wannabeInterAddonProvision).Execute()
+> ProvisionOtherAddon(ctx, wannabeInterAddonProvision)
 
 
 
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    wannabeInterAddonProvision := *openapiclient.NewWannabeInterAddonProvision() // WannabeInterAddonProvision | 
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ProductsApi.ProvisionOtherAddon(context.Background()).WannabeInterAddonProvision(wannabeInterAddonProvision).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProductsApi.ProvisionOtherAddon``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiProvisionOtherAddonRequest struct via the builder pattern
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **wannabeInterAddonProvision** | [**WannabeInterAddonProvision**](WannabeInterAddonProvision.md) |  | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**wannabeInterAddonProvision** | [**WannabeInterAddonProvision**](WannabeInterAddonProvision.md)|  | 
 
 ### Return type
 

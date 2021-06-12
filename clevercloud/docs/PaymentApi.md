@@ -18,51 +18,27 @@ Method | HTTP request | Description
 
 ## CheckVat
 
-> VatResult CheckVat(ctx).Country(country).Vat(vat).Execute()
+> VatResult CheckVat(ctx, optional)
 
 
 
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    country := "country_example" // string |  (optional)
-    vat := "vat_example" // string |  (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PaymentApi.CheckVat(context.Background()).Country(country).Vat(vat).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PaymentApi.CheckVat``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CheckVat`: VatResult
-    fmt.Fprintf(os.Stdout, "Response from `PaymentApi.CheckVat`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCheckVatRequest struct via the builder pattern
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **country** | **string** |  | 
- **vat** | **string** |  | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***CheckVatOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a CheckVatOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **country** | **optional.String**|  | 
+ **vat** | **optional.String**|  | 
 
 ### Return type
 
@@ -84,55 +60,18 @@ No authorization required
 
 ## EndPaymentWithStripe
 
-> InvoiceRendering EndPaymentWithStripe(ctx, bid).PaymentData(paymentData).Execute()
+> InvoiceRendering EndPaymentWithStripe(ctx, bid, paymentData)
 
 
 
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    bid := "bid_example" // string | 
-    paymentData := *openapiclient.NewPaymentData() // PaymentData | 
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PaymentApi.EndPaymentWithStripe(context.Background(), bid).PaymentData(paymentData).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PaymentApi.EndPaymentWithStripe``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `EndPaymentWithStripe`: InvoiceRendering
-    fmt.Fprintf(os.Stdout, "Response from `PaymentApi.EndPaymentWithStripe`: %v\n", resp)
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**bid** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiEndPaymentWithStripeRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **paymentData** | [**PaymentData**](PaymentData.md) |  | 
+**bid** | **string**|  | 
+**paymentData** | [**PaymentData**](PaymentData.md)|  | 
 
 ### Return type
 
@@ -154,44 +93,13 @@ No authorization required
 
 ## GetAvailablePaymentProviders
 
-> []PaymentProviderView GetAvailablePaymentProviders(ctx).Execute()
+> []PaymentProviderView GetAvailablePaymentProviders(ctx, )
 
 
 
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PaymentApi.GetAvailablePaymentProviders(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PaymentApi.GetAvailablePaymentProviders``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetAvailablePaymentProviders`: []PaymentProviderView
-    fmt.Fprintf(os.Stdout, "Response from `PaymentApi.GetAvailablePaymentProviders`: %v\n", resp)
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetAvailablePaymentProvidersRequest struct via the builder pattern
-
 
 ### Return type
 
@@ -213,53 +121,17 @@ No authorization required
 
 ## GetCoupon
 
-> CouponView GetCoupon(ctx, name).Execute()
+> CouponView GetCoupon(ctx, name)
 
 
 
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    name := "name_example" // string | 
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PaymentApi.GetCoupon(context.Background(), name).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PaymentApi.GetCoupon``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetCoupon`: CouponView
-    fmt.Fprintf(os.Stdout, "Response from `PaymentApi.GetCoupon`: %v\n", resp)
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetCouponRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
+**name** | **string**|  | 
 
 ### Return type
 
@@ -281,51 +153,17 @@ No authorization required
 
 ## GetInvoiceStatusButton
 
-> GetInvoiceStatusButton(ctx, token).Execute()
+> GetInvoiceStatusButton(ctx, token)
 
 
 
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    token := "token_example" // string | 
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PaymentApi.GetInvoiceStatusButton(context.Background(), token).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PaymentApi.GetInvoiceStatusButton``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**token** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetInvoiceStatusButtonRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
+**token** | **string**|  | 
 
 ### Return type
 
@@ -347,44 +185,13 @@ No authorization required
 
 ## GetStripeToken
 
-> BraintreeToken GetStripeToken(ctx).Execute()
+> BraintreeToken GetStripeToken(ctx, )
 
 
 
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PaymentApi.GetStripeToken(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PaymentApi.GetStripeToken``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetStripeToken`: BraintreeToken
-    fmt.Fprintf(os.Stdout, "Response from `PaymentApi.GetStripeToken`: %v\n", resp)
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetStripeTokenRequest struct via the builder pattern
-
 
 ### Return type
 
@@ -406,49 +213,27 @@ No authorization required
 
 ## StripeSepaWebhook
 
-> StripeSepaWebhook(ctx).StripeSignature(stripeSignature).Body(body).Execute()
+> StripeSepaWebhook(ctx, optional)
 
 
 
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    stripeSignature := "stripeSignature_example" // string |  (optional)
-    body := "body_example" // string |  (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PaymentApi.StripeSepaWebhook(context.Background()).StripeSignature(stripeSignature).Body(body).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PaymentApi.StripeSepaWebhook``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiStripeSepaWebhookRequest struct via the builder pattern
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **stripeSignature** | **string** |  | 
- **body** | **string** |  | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***StripeSepaWebhookOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a StripeSepaWebhookOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **stripeSignature** | **optional.String**|  | 
+ **body** | **optional.String**|  | 
 
 ### Return type
 
@@ -470,55 +255,18 @@ No authorization required
 
 ## UpdateStripePayment
 
-> InvoiceRendering UpdateStripePayment(ctx, bid).SetupIntentView(setupIntentView).Execute()
+> InvoiceRendering UpdateStripePayment(ctx, bid, setupIntentView)
 
 
 
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    bid := "bid_example" // string | 
-    setupIntentView := *openapiclient.NewSetupIntentView() // SetupIntentView | 
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PaymentApi.UpdateStripePayment(context.Background(), bid).SetupIntentView(setupIntentView).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PaymentApi.UpdateStripePayment``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateStripePayment`: InvoiceRendering
-    fmt.Fprintf(os.Stdout, "Response from `PaymentApi.UpdateStripePayment`: %v\n", resp)
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**bid** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiUpdateStripePaymentRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **setupIntentView** | [**SetupIntentView**](SetupIntentView.md) |  | 
+**bid** | **string**|  | 
+**setupIntentView** | [**SetupIntentView**](SetupIntentView.md)|  | 
 
 ### Return type
 
@@ -540,55 +288,28 @@ No authorization required
 
 ## Validate
 
-> Message Validate(ctx, key).Action(action).Execute()
+> Message Validate(ctx, key, optional)
 
 
 
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    key := "key_example" // string | 
-    action := "action_example" // string |  (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PaymentApi.Validate(context.Background(), key).Action(action).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PaymentApi.Validate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `Validate`: Message
-    fmt.Fprintf(os.Stdout, "Response from `PaymentApi.Validate`: %v\n", resp)
-}
-```
-
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**key** | **string** |  | 
+**key** | **string**|  | 
+ **optional** | ***ValidateOpts** | optional parameters | nil if no parameters
 
-### Other Parameters
+### Optional Parameters
 
-Other parameters are passed through a pointer to a apiValidateRequest struct via the builder pattern
+Optional parameters are passed through a pointer to a ValidateOpts struct
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **action** | **string** |  | 
+ **action** | **optional.String**|  | 
 
 ### Return type
 

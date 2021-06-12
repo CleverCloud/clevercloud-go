@@ -18,59 +18,13 @@ Install the following dependencies:
 go get github.com/stretchr/testify/assert
 go get golang.org/x/oauth2
 go get golang.org/x/net/context
+go get github.com/antihax/optional
 ```
 
 Put the package under your project folder and add the following in import:
 
 ```golang
-import sw "./clevercloud"
-```
-
-To use a proxy, set the environment variable `HTTP_PROXY`:
-
-```golang
-os.Setenv("HTTP_PROXY", "http://proxy_name:proxy_port")
-```
-
-## Configuration of Server URL
-
-Default configuration comes with `Servers` field that contains server objects as defined in the OpenAPI specification.
-
-### Select Server Configuration
-
-For using other server than the one defined on index 0 set context value `sw.ContextServerIndex` of type `int`.
-
-```golang
-ctx := context.WithValue(context.Background(), sw.ContextServerIndex, 1)
-```
-
-### Templated Server URL
-
-Templated server URL is formatted using default variables from configuration or from context value `sw.ContextServerVariables` of type `map[string]string`.
-
-```golang
-ctx := context.WithValue(context.Background(), sw.ContextServerVariables, map[string]string{
-	"basePath": "v2",
-})
-```
-
-Note, enum values are always validated and all unused variables are silently ignored.
-
-### URLs Configuration per Operation
-
-Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
-An operation is uniquely identifield by `"{classname}Service.{nickname}"` string.
-Similar rules for overriding default operation server index and variables applies by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
-
-```
-ctx := context.WithValue(context.Background(), sw.ContextOperationServerIndices, map[string]int{
-	"{classname}Service.{nickname}": 2,
-})
-ctx = context.WithValue(context.Background(), sw.ContextOperationServerVariables, map[string]map[string]string{
-	"{classname}Service.{nickname}": {
-		"port": "8443",
-	},
-})
+import "./clevercloud"
 ```
 
 ## Documentation for API Endpoints
@@ -184,8 +138,8 @@ Class | Method | HTTP request | Description
 *OrganisationApi* | [**GetSSODataForOrga**](docs/OrganisationApi.md#getssodatafororga) | **Get** /organisations/{id}/addonproviders/{providerId}/sso | 
 *OrganisationApi* | [**GetStripeTokenByOrga**](docs/OrganisationApi.md#getstripetokenbyorga) | **Get** /organisations/{id}/payments/tokens/stripe | 
 *OrganisationApi* | [**GetTcpRedirs**](docs/OrganisationApi.md#gettcpredirs) | **Get** /organisations/{id}/applications/{appId}/tcpRedirs | 
-*OrganisationApi* | [**GetUnpaidInvoicesByOrga**](docs/OrganisationApi.md#getunpaidinvoicesbyorga) | **Get** /organisations/{id}/payments/methods | 
-*OrganisationApi* | [**GetUnpaidInvoicesByOrga1**](docs/OrganisationApi.md#getunpaidinvoicesbyorga1) | **Get** /organisations/{id}/payments/billings/unpaid | 
+*OrganisationApi* | [**GetUnpaidInvoicesByOrga**](docs/OrganisationApi.md#getunpaidinvoicesbyorga) | **Get** /organisations/{id}/payments/billings/unpaid | 
+*OrganisationApi* | [**GetUnpaidInvoicesByOrga1**](docs/OrganisationApi.md#getunpaidinvoicesbyorga1) | **Get** /organisations/{id}/payments/methods | 
 *OrganisationApi* | [**GetUserOrganisationss**](docs/OrganisationApi.md#getuserorganisationss) | **Get** /organisations | 
 *OrganisationApi* | [**GetVhostsByOrgaAndAppId**](docs/OrganisationApi.md#getvhostsbyorgaandappid) | **Get** /organisations/{id}/applications/{appId}/vhosts | 
 *OrganisationApi* | [**LinkAddonToApplicationByOrgaAndAppId**](docs/OrganisationApi.md#linkaddontoapplicationbyorgaandappid) | **Post** /organisations/{id}/applications/{appId}/addons | 
@@ -204,7 +158,7 @@ Class | Method | HTTP request | Description
 *OrganisationApi* | [**SetBuildInstanceFlavorByOrgaAndAppId**](docs/OrganisationApi.md#setbuildinstanceflavorbyorgaandappid) | **Put** /organisations/{id}/applications/{appId}/buildflavor | 
 *OrganisationApi* | [**SetDefaultMethodByOrga**](docs/OrganisationApi.md#setdefaultmethodbyorga) | **Put** /organisations/{id}/payments/methods/default | 
 *OrganisationApi* | [**SetMaxCreditsPerMonthByOrga**](docs/OrganisationApi.md#setmaxcreditspermonthbyorga) | **Put** /organisations/{id}/payments/monthlyinvoice/maxcredit | 
-*OrganisationApi* | [**SetOrgaAvatar**](docs/OrganisationApi.md#setorgaavatar) | **Put** /organisations/{id}/avatar | 
+*OrganisationApi* | [**SetOrgaAvatarFromSource**](docs/OrganisationApi.md#setorgaavatarfromsource) | **Put** /organisations/{id}/avatar | 
 *OrganisationApi* | [**UndeployApplicationByOrgaAndAppId**](docs/OrganisationApi.md#undeployapplicationbyorgaandappid) | **Delete** /organisations/{id}/applications/{appId}/instances | 
 *OrganisationApi* | [**UnlinkAddonFromApplicationByOrgaAndAppAnddAddonId**](docs/OrganisationApi.md#unlinkaddonfromapplicationbyorgaandappanddaddonid) | **Delete** /organisations/{id}/applications/{appId}/addons/{addonId} | 
 *OrganisationApi* | [**UnmarkFavouriteVhostByOrgaAndAppId**](docs/OrganisationApi.md#unmarkfavouritevhostbyorgaandappid) | **Delete** /organisations/{id}/applications/{appId}/vhosts/favourite | 
@@ -389,8 +343,8 @@ Class | Method | HTTP request | Description
  - [AddonPlanView](docs/AddonPlanView.md)
  - [AddonProviderInfoFullView](docs/AddonProviderInfoFullView.md)
  - [AddonProviderInfoView](docs/AddonProviderInfoView.md)
- - [AddonProviderSSOData](docs/AddonProviderSSOData.md)
- - [AddonSSOData](docs/AddonSSOData.md)
+ - [AddonProviderSsoData](docs/AddonProviderSsoData.md)
+ - [AddonSsoData](docs/AddonSsoData.md)
  - [AddonSummary](docs/AddonSummary.md)
  - [AddonView](docs/AddonView.md)
  - [ApplicationSummary](docs/ApplicationSummary.md)
@@ -412,13 +366,24 @@ Class | Method | HTTP request | Description
  - [GithubWebhookPusher](docs/GithubWebhookPusher.md)
  - [GithubWebhookRepository](docs/GithubWebhookRepository.md)
  - [GithubWebhookSender](docs/GithubWebhookSender.md)
+ - [InlineObject](docs/InlineObject.md)
+ - [InlineObject1](docs/InlineObject1.md)
+ - [InlineObject10](docs/InlineObject10.md)
+ - [InlineObject2](docs/InlineObject2.md)
+ - [InlineObject3](docs/InlineObject3.md)
+ - [InlineObject4](docs/InlineObject4.md)
+ - [InlineObject5](docs/InlineObject5.md)
+ - [InlineObject6](docs/InlineObject6.md)
+ - [InlineObject7](docs/InlineObject7.md)
+ - [InlineObject8](docs/InlineObject8.md)
+ - [InlineObject9](docs/InlineObject9.md)
  - [InstanceVariantView](docs/InstanceVariantView.md)
  - [InstanceView](docs/InstanceView.md)
  - [InvoiceLineRendering](docs/InvoiceLineRendering.md)
  - [InvoiceRendering](docs/InvoiceRendering.md)
  - [LinkedAddonEnvironmentView](docs/LinkedAddonEnvironmentView.md)
- - [MFARecoveryCode](docs/MFARecoveryCode.md)
  - [Message](docs/Message.md)
+ - [MfaRecoveryCode](docs/MfaRecoveryCode.md)
  - [NamespaceView](docs/NamespaceView.md)
  - [NextInPaymentFlow](docs/NextInPaymentFlow.md)
  - [OAuth1AccessTokenView](docs/OAuth1AccessTokenView.md)
@@ -462,8 +427,8 @@ Class | Method | HTTP request | Description
  - [WannabeAddonFeature](docs/WannabeAddonFeature.md)
  - [WannabeAddonPlan](docs/WannabeAddonPlan.md)
  - [WannabeAddonProvider](docs/WannabeAddonProvider.md)
- - [WannabeAddonProviderAPI](docs/WannabeAddonProviderAPI.md)
- - [WannabeAddonProviderAPIUrl](docs/WannabeAddonProviderAPIUrl.md)
+ - [WannabeAddonProviderApi](docs/WannabeAddonProviderApi.md)
+ - [WannabeAddonProviderApiUrl](docs/WannabeAddonProviderApiUrl.md)
  - [WannabeAddonProviderInfos](docs/WannabeAddonProviderInfos.md)
  - [WannabeAddonProvision](docs/WannabeAddonProvision.md)
  - [WannabeApplication](docs/WannabeApplication.md)
@@ -472,10 +437,10 @@ Class | Method | HTTP request | Description
  - [WannabeBranch](docs/WannabeBranch.md)
  - [WannabeBuildFlavor](docs/WannabeBuildFlavor.md)
  - [WannabeInterAddonProvision](docs/WannabeInterAddonProvision.md)
- - [WannabeMFACreds](docs/WannabeMFACreds.md)
- - [WannabeMFAFav](docs/WannabeMFAFav.md)
  - [WannabeMaxCredits](docs/WannabeMaxCredits.md)
  - [WannabeMember](docs/WannabeMember.md)
+ - [WannabeMfaCreds](docs/WannabeMfaCreds.md)
+ - [WannabeMfaFav](docs/WannabeMfaFav.md)
  - [WannabeNamespace](docs/WannabeNamespace.md)
  - [WannabeOAuth1Consumer](docs/WannabeOAuth1Consumer.md)
  - [WannabeOauthApp](docs/WannabeOauthApp.md)
@@ -492,21 +457,6 @@ Class | Method | HTTP request | Description
  Endpoints do not require authorization.
 
 
-## Documentation for Utility Methods
-
-Due to the fact that model structure members are all pointers, this package contains
-a number of utility functions to easily obtain pointers to values of basic types.
-Each of these functions takes a value of the given basic type and returns a pointer to it:
-
-* `PtrBool`
-* `PtrInt`
-* `PtrInt32`
-* `PtrInt64`
-* `PtrFloat`
-* `PtrFloat32`
-* `PtrFloat64`
-* `PtrString`
-* `PtrTime`
 
 ## Author
 
