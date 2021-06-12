@@ -1,18 +1,19 @@
-package examples
+package main
 
 import (
 	"context"
 	"fmt"
 	"os"
 
-	"github.com/clevercloud/clevercloud-go/clevercloud"
+	"../clevercloud"
 )
 
 func main() {
+	oauth := clevercloud.NewOAuthClient()
 	config := clevercloud.NewConfiguration()
-	api := clevercloud.NewAPIClient(config)
+	api := clevercloud.NewOAuthAPIClient(oauth, config)
 
-	resp, r, err := api.SelfApi.GetUser(context.Background()).Execute()
+	resp, r, err := api.SelfApi.GetUser(context.Background())
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SelfApi.GetUser``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
