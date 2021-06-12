@@ -21,3 +21,5 @@
 
 ### OpenAPI Generator ###
 *.jar
+
+.env

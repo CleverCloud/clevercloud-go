@@ -1,40 +1,35 @@
 package clevercloud
 
 import (
-	"os"
-
 	"github.com/dghubble/oauth1"
 )
 
 const (
-	APIURL         = "https://api.clever-cloud.com/v2"
-	consumerKey    = "x9Dv3WBvHcZZgg3sLmzXTyi2FFhfSu"
-	consumerSecret = "RnUvL43r4RoUgH9cHqTzeeCh2v0nbv"
+	APIURL     = "https://api.clever-cloud.com/v2"
+	configPath = "/.config/clever-cloud"
 )
+
+type Config struct {
+	Token  string `json:"token"`
+	Secret string `json:"secret"`
+}
 
 type OAuthClient struct {
 	OAuthConfig *oauth1.Config
 	OAuthToken  *oauth1.Token
 }
 
-func NewOAuthClient() *OAuthClient {
+func NewOAuthClient(consumerKey, consumerSecret string) *OAuthClient {
 	client := &OAuthClient{
 		OAuthConfig: &oauth1.Config{
 			ConsumerKey:    consumerKey,
 			ConsumerSecret: consumerSecret,
-			Signer: &oauth1.HMAC256Signer{
-				ConsumerSecret: consumerSecret,
-			},
 			Endpoint: oauth1.Endpoint{
 				RequestTokenURL: APIURL + "/oauth/request_token",
 				AuthorizeURL:    APIURL + "/oauth/authorize",
 				AccessTokenURL:  APIURL + "/oauth/access_token",
 			},
 		},
-	}
-
-	if client.OAuthToken == nil {
-		client.SetOAuthTokensFromEnv()
 	}
 
 	return client
@@ -61,13 +56,8 @@ func NewOAuthAPIClient(oc *OAuthClient, cfg *Configuration) *APIClient {
 	return c
 }
 
-// SetOAuthTokensFromEnv set oauth tokens from env
-func (o *OAuthClient) SetOAuthTokensFromEnv() {
-	o.SetOAuthTokens(os.Getenv("CLEVER_TOKEN"), os.Getenv("CLEVER_SECRET"))
-}
-
 // SetOAuthTokens set oauth tokens in configuration
-func (o *OAuthClient) SetOAuthTokens(token, secret string) {
+func (o *OAuthClient) SetTokens(token, secret string) {
 	o.OAuthToken = &oauth1.Token{
 		Token:       token,
 		TokenSecret: secret,
